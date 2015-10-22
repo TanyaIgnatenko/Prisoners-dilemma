@@ -17,26 +17,22 @@ void user::user_interface(vector<string> & name_of_strategy, int count_of_strate
 	if(Detailed == mode)
 	{
 		Game game(name_of_strategy[0], name_of_strategy[1], name_of_strategy[2]);
-		char command[7];
+		string command;
 
 		for(;;)
 		{
-			cin.get(command, 7);
-
-			if(!strcmp(command, "tick"))
+			getline(cin, command);
+			if(command == "tick")
 			{
-				cin.ignore();
 				game.tick();
 				game.print_move_scores();
 				game.print_game_scores();
 			}
 
-			else if(!strcmp(command, "tick <"))
+			else if(command.find("tick ") !=  string::npos)
 			{
-				char n = 1;//!
-				cin.get(n);
-				cin.ignore();
-
+				command.erase (0,4);
+				int n = stoi(command);
 				for (int i = 0; i < n; ++i)
 				{
 					game.tick();
@@ -45,11 +41,12 @@ void user::user_interface(vector<string> & name_of_strategy, int count_of_strate
 				}
 			}
 
-			else if(!strcmp(command, "quit"))
+			else if(command == "quit")
 			{
-				cin.ignore();
 				exit(0);
 			}
+
+			command.erase();
 		}
 	}
 	else if(Fast == mode)
