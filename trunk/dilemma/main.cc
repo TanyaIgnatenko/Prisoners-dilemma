@@ -69,8 +69,7 @@ int main(int argc, char **argv)
 		int steps;
 		if(idx < argc && args[idx].find("--steps") !=  string::npos)
 		{
-			args[idx].erase (0,9);
-			args[idx].pop_back();
+			args[idx].erase (0,7);
 			steps = stoi(args[idx]);
 		}
 		else
