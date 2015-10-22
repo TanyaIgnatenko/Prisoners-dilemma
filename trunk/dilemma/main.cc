@@ -19,13 +19,14 @@ int main(int argc, char **argv)
 		std::vector<string> args;
 		for (int i = 1; i < argc; ++i)
 		{
+
 			args.push_back(string(argv[i]));
+			if(i == 4)
+			{
+				cout << args[3] << "\n";
+			}
 		}
 		std::vector<string> name_of_strategy;
-		// for(int i = 0; args[i].find("--") ==  string::npos && i < argc; ++i)
-		// { 
-		// 	name_of_strategy.push_back(args[i]);
-		// }
 
 		for(auto it = args.begin(); ( it != args.end() && it->find(string("--")) == string::npos); ++it)
 		{
@@ -34,18 +35,19 @@ int main(int argc, char **argv)
 
 		
 		Mode mode;
-		int idx = name_of_strategy.size() + 1;
-		if(idx < argc && args[idx].find("--mode") !=  string::npos)
+
+		int idx = name_of_strategy.size();
+		if(idx < args.size() && args[idx].find("--mode") !=  string::npos)
 		{
-			if(argv[idx] == "mode=detailed")
+			if(args[idx] == "--mode=detailed")
 			{
 				mode = Detailed;
 			}
-			else if(argv[idx] == "mode=fast")
+			else if(args[idx] == "--mode=fast")
 			{
 				mode = Fast;
 			}
-			else if(argv[idx] == "mode=tournament")
+			else if(args[idx] == "--mode=tournament")
 			{
 				mode = Tournament;
 			}	
@@ -67,7 +69,7 @@ int main(int argc, char **argv)
 		}
 
 		int steps;
-		if(idx < argc && args[idx].find("--steps") !=  string::npos)
+		if(idx < args.size() && args[idx].find("--steps") !=  string::npos)
 		{
 			args[idx].erase (0,7);
 			steps = stoi(args[idx]);

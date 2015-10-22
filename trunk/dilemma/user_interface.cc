@@ -51,6 +51,7 @@ void user::user_interface(vector<string> & name_of_strategy, int count_of_strate
 	}
 	else if(Fast == mode)
 	{
+		cout << "Fast" <<endl;
 		Game game(name_of_strategy[0], name_of_strategy[1], name_of_strategy[2]);
 		game.tick(steps);
 		game.print_game_scores();
