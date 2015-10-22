@@ -12,7 +12,7 @@ Game::Game(string & n1, string & n2, string & n3) : scores(n1, n2, n3)
 	prisoner3 = Factory<string, Strategy, Strategy::Creator>::instance()->create(n3);
 }
 
-void Game::tick(int steps)
+void Game::tick()
 {
 	if(prisoner1 && prisoner2 && prisoner3) 
 	{

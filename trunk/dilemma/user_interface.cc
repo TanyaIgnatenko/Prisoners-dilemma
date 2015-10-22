@@ -53,7 +53,10 @@ void user::user_interface(vector<string> & name_of_strategy, int count_of_strate
 	{
 		cout << "Fast" <<endl;
 		Game game(name_of_strategy[0], name_of_strategy[1], name_of_strategy[2]);
-		game.tick(steps);
+		for (int i = 0; i < steps; ++i)
+		{
+			game.tick();
+		}
 		game.print_game_scores();
 	}
 	else if(Tournament == mode)
@@ -72,7 +75,11 @@ void user::user_interface(vector<string> & name_of_strategy, int count_of_strate
 				{
 
 					Game game(name_of_strategy[i], name_of_strategy[j], name_of_strategy[k]);
-					game.tick(steps);
+					
+					for (int i = 0; i < steps; ++i)
+					{
+						game.tick();
+					}
 					game.print_game_scores();
 
 					sum_of_scores[name_of_strategy[i]] += game.get_game_scores(1);
