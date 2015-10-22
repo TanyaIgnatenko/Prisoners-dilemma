@@ -1,7 +1,6 @@
 #ifndef BADSTRATEGY_H
 #define BADSTRATEGY_H
 #include <string>
-
 #include "strategy.h"
 #include "factory.h"
 #include "enum.h"
@@ -14,13 +13,13 @@ public:
 	BadStrategy(): name(string("BadStrategy")){}
 	~BadStrategy(){}
 	BadStrategy(const BadStrategy & other){}
-	choice decide() const {return RemainSilent;}
+	choice decide() const {return Betray;}
 	const string & get_name() const {return name;}
 
 	class Creator : public Strategy::Creator
 	{
 	public:
-		Strategy * operator()() 
+		Strategy * operator()() const
 		{
 			return new BadStrategy;
 		}
@@ -32,6 +31,6 @@ private:
 
 namespace
 {
-	bool b2 = Factory<string, Strategy, Strategy::Creator>::instance()->doregister("BadStrategy", BadStrategy::Creator());
+	bool b2 = Factory<string, Strategy, Strategy::Creator>::instance()->doregister("BadStrategy", new BadStrategy::Creator);
 }
 #endif
