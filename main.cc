@@ -19,12 +19,7 @@ int main(int argc, char **argv)
 		std::vector<string> args;
 		for (int i = 1; i < argc; ++i)
 		{
-
 			args.push_back(string(argv[i]));
-			if(i == 4)
-			{
-				cout << args[3] << "\n";
-			}
 		}
 		std::vector<string> name_of_strategy;
 
