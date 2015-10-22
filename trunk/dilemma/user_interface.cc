@@ -25,6 +25,7 @@ void user::user_interface(vector<string> & name_of_strategy, int count_of_strate
 
 			if(!strcmp(command, "tick"))
 			{
+				cin.ignore();
 				game.tick();
 				game.print_move_scores();
 				game.print_game_scores();
