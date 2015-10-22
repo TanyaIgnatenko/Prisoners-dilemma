@@ -67,7 +67,6 @@ int main(int argc, char **argv)
 		if(idx < args.size() && args[idx].find("--steps=") !=  string::npos)
 		{
 			args[idx].erase (0,8);
-			cout << stoi(args[idx]) << endl;
 			steps = stoi(args[idx]);
 		}
 		else

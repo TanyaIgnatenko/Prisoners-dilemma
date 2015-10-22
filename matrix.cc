@@ -53,6 +53,7 @@ void matrix::print_move_scores() const
 	cout << name_of_strategy1 << ": " << +scores1[move]<< endl;// unary + promotes to a type printable as a number, regardless of type
 	cout << name_of_strategy2 << ": " << +scores2[move]<< endl;// unary + promotes to a type printable as a number, regardless of type
 	cout << name_of_strategy3 << ": " << +scores3[move]<< endl;// unary + promotes to a type printable as a number, regardless of type
+	cout << "" << endl;
 }
 
 void matrix::print_game_scores() const
@@ -74,4 +75,5 @@ void matrix::print_game_scores() const
 	cout << name_of_strategy1 << ": " << sum1 << endl;
 	cout << name_of_strategy2 << ": " << sum2 << endl;
 	cout << name_of_strategy3 << ": " << sum3 << endl;
+	cout << "" << endl;
 }
