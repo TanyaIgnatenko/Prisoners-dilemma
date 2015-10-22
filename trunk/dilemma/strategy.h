@@ -16,7 +16,7 @@ public:
 	class Creator
 	{
 	public:
-		virtual Strategy * operator()() {return nullptr;};	
+		virtual Strategy * operator()() const = 0;	
 	};
 };
 

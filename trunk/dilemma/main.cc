@@ -16,55 +16,66 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		std::vector<string> name_of_strategy(argc + 1);
-		int count_of_strategies = 0;
-		for(int i = 0; !strstr(argv[i+1], "mode") ; ++i)
+		std::vector<string> args;
+		for (int i = 1; i < argc; ++i)
 		{
-			name_of_strategy[i] = string(argv[i]);
-			count_of_strategies++;
+			args.push_back(string(argv[i]));
+		}
+		std::vector<string> name_of_strategy;
+		// for(int i = 0; args[i].find("--") ==  string::npos && i < argc; ++i)
+		// { 
+		// 	name_of_strategy.push_back(args[i]);
+		// }
+
+		for(auto it = args.begin(); ( it != args.end() && it->find(string("--")) == string::npos); ++it)
+		{
+			name_of_strategy.push_back(*it);
 		}
 
+		
 		Mode mode;
-		if(argv[4])
+		int idx = name_of_strategy.size() + 1;
+		if(idx < argc && args[idx].find("--mode") !=  string::npos)
 		{
-			if(!strcmp(argv[4], "mode=detailed"))
+			if(argv[idx] == "mode=detailed")
 			{
 				mode = Detailed;
 			}
-			if(!strcmp(argv[4], "mode=fast"))
+			else if(argv[idx] == "mode=fast")
 			{
 				mode = Fast;
 			}
-			if(!strcmp(argv[4], "mode=tournament"))
+			else if(argv[idx] == "mode=tournament")
 			{
 				mode = Tournament;
-			}
+			}	
 			else
 			{
-				cerr << "Bad input. For more information try \"help\".\n";
-				return 1;
+				mode = Detailed; //by default
 			}
-
+			idx++;
 		}
 		else
 		{
-			mode = Detailed;
+			mode = Detailed; //by default
 		}
 
-		if( 3 < count_of_strategies || (mode != Tournament && 3 > count_of_strategies))
+		if( 3 > name_of_strategy.size() || (Tournament != mode && 3 > name_of_strategy.size()))
 		{
 			cerr << "Bad input. For more information try \"help\".\n";
 			return 1;
 		}
 
 		int steps;
-		if(argv[5])
+		if(idx < argc && args[idx].find("--steps") !=  string::npos)
 		{
-			steps = *argv[5];
+			args[idx].erase (0,9);
+			args[idx].pop_back();
+			steps = stoi(args[idx]);
 		}
 		else
 		{
-			steps = 1;
+			steps = 1; //by default
 		}
 		
 		/*ifstream file_of_matrix;
@@ -78,10 +89,10 @@ int main(int argc, char **argv)
 			}
 		}*/
 
-		user info;
+			user info;
 
-		info.user_interface(name_of_strategy, count_of_strategies, mode, steps);
+			info.user_interface(name_of_strategy, name_of_strategy.size(), mode, steps);
 
-		return 0;
+			return 0;
 	}
 }

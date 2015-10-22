@@ -1,7 +1,6 @@
 #ifndef KINDSTRATEGY_H
 #define KINDSTRATEGY_H
 #include <string>
-
 #include "strategy.h"
 #include "factory.h"
 #include "enum.h"
@@ -19,7 +18,7 @@ public:
 	class Creator : public Strategy::Creator
 	{
 	public:
-		Strategy * operator()() 
+		Strategy * operator()() const
 		{
 			return new KindStrategy;
 		}
@@ -31,7 +30,7 @@ private:
 
 namespace
 {
-	bool b1 = Factory<string, Strategy, Strategy::Creator>::instance()->doregister("KindStrategy", KindStrategy::Creator());
+	bool b1 = Factory<string, Strategy, Strategy::Creator>::instance()->doregister("KindStrategy", new KindStrategy::Creator);
 }
 
 #endif
