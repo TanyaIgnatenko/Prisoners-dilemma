@@ -3,6 +3,11 @@
 #include <iostream>
 #include "matrix.h"
 using namespace std;
+using namespace for_matrix;
+
+inline matrix::matrix(string n1, string n2, string n3, std::vector<char> sc1, std::vector<char> sc2, std::vector<char> sc3)
+: name_of_strategy1(n1), name_of_strategy2(n2), name_of_strategy3(n3), scores1(sc1), scores2(sc2), scores3(sc3), empty(0)
+{}
 
 void matrix::add_scores(char sc1, char sc2, char sc3)
 {
@@ -76,4 +81,56 @@ void matrix::print_game_scores() const
 	cout << name_of_strategy2 << ": " << sum2 << endl;
 	cout << name_of_strategy3 << ": " << sum3 << endl;
 	cout << "" << endl;
+}
+
+matrix matrix::operator=(const matrix & other)
+{
+	name_of_strategy1 = other.name_of_strategy1;
+	name_of_strategy2 = other.name_of_strategy2;
+	name_of_strategy3 = other.name_of_strategy3;
+	scores1 = other.scores1;
+	scores2 = other.scores2;
+	scores3 = other.scores3;
+	empty = other.empty;
+}
+
+matrix for_matrix::extract_matrix(ifstream & file)
+{
+	string name1;
+	file >> name1;
+	std::vector<char> scores1;
+	char c;
+	file.get(c);
+	while(c != '\n')// we skip spaces
+	{
+		file.get(c);
+		scores1.push_back(c);
+		file.get(c);
+	}
+
+	string name2;
+	file >> name2;
+	std::vector<char> scores2;
+	file.get(c);
+	while(c != '\n')// we skip spaces
+	{
+		file.get(c);
+		scores2.push_back(c);
+		file.get(c);
+	}
+
+	string name3;
+	file >> name3;
+	std::vector<char> scores3;
+	file.get(c);
+	while(c != '\n')// we skip spaces
+	{
+		file.get(c);
+		scores3.push_back(c);
+		file.get(c);
+	}
+
+	matrix m1(name1, name2, name3, scores1, scores2, scores3);
+		
+	return m1;
 }

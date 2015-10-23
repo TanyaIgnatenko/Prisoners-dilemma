@@ -4,7 +4,9 @@
 #include <map>
 
 #include "user.h"
+#include "matrix.h"
 using namespace std;
+using namespace for_matrix;
 
 
 bool compare(const pair<string, int> & a, const pair<string, int> & b)
@@ -36,19 +38,3 @@ void user::print_results_of_tour(std::map<string, int> & sum_of_scores, std::vec
 	}
 	cout << "" << endl;
 }
-
-
-
-/*void user::print_results(const std::map<const string, int> * scores) const
-{
-	for (int i = 0, iterator ptr = scores->begin; i < 3; ++i, ++ptr)
-	{
-		cout << ptr->first << " " << ptr->second << "\n";
-	}
-}
-
-int user::get_scores(const std::map<const string, int> * scores, name_of_strategy[i]) const
-{
-	iterator ptr = map->find(name_of_strategy);
-	return ptr->second;
-}*/

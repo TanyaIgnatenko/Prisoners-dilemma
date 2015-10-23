@@ -4,9 +4,15 @@
 #include "strategy.h"
 #include "enum.h"
 using namespace std;
+using namespace for_matrix;
 
-Game::Game(string & n1, string & n2, string & n3) : scores(n1, n2, n3)
+Game::Game(string & n1, string & n2, string & n3, matrix sc) : scores(n1, n2, n3)
 {
+	if(!sc.is_empty())
+	{
+		scores = sc;
+	}
+
 	prisoner1 = Factory<string, Strategy, Strategy::Creator>::instance()->create(n1);
 	prisoner2 = Factory<string, Strategy, Strategy::Creator>::instance()->create(n2);
 	prisoner3 = Factory<string, Strategy, Strategy::Creator>::instance()->create(n3);
@@ -19,6 +25,10 @@ void Game::tick()
 		choice x1 = prisoner1->decide();
 		choice x2 = prisoner2->decide();
 		choice x3 = prisoner3->decide();
+		
+		prisoner1->enemy_choices(x2, x3);
+		prisoner2->enemy_choices(x1, x3);
+		prisoner3->enemy_choices(x1, x2);
 
 		if(Betray == x1 && Betray == x2 && Betray == x3)
 		{
