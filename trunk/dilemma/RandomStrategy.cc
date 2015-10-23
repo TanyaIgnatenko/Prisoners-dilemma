@@ -1,8 +1,7 @@
 #ifndef RANDOMSTRATEGY_H
 #define RANDOMSTRATEGY_H
 #include <string>
-#include <stdlib.h>
-#include <time.h>  
+#include <random>  
 
 #include "strategy.h"
 #include "factory.h"
@@ -16,7 +15,7 @@ public:
 	RandomStrategy(){}
 	~RandomStrategy(){}
 	RandomStrategy(const RandomStrategy & other){}
-	choice decide() const {srand (time(NULL)); int x = rand() % 2; return x ? Betray : RemainSilent;}
+	choice decide() const {random_device rand; int x = rand() % 2; return x ? Betray : RemainSilent;}
 
 	class Creator : public Strategy::Creator
 	{
