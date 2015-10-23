@@ -5,12 +5,13 @@
 #include "strategy.h"
 #include "matrix.h"
 using namespace std;
+using namespace for_matrix;
 
 
 class Game
 {
 public:
-	Game(string & n1, string & n2, string & n3);
+	Game(string & n1, string & n2, string & n3, matrix sc);
 	Game(const Game & other) : scores(other.scores), prisoner1(other.prisoner1), prisoner2(other.prisoner2), prisoner3(other.prisoner3){}
 	~Game() { delete prisoner1; delete prisoner2; delete prisoner3;}
 	void tick();

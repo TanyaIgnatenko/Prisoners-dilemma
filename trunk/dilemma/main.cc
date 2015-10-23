@@ -4,8 +4,10 @@
 #include <string>
 #include <iostream>
 #include "user.h"
+#include "matrix.h"
 #include "enum.h"
 using namespace std;
+using namespace for_matrix;
 
 int main(int argc, char **argv)
 { 	
@@ -27,7 +29,6 @@ int main(int argc, char **argv)
 		{
 			name_of_strategy.push_back(*it);
 		}
-
 		
 		Mode mode;
 
@@ -50,7 +51,7 @@ int main(int argc, char **argv)
 			{
 				mode = Detailed; //by default
 			}
-			idx++;
+			++idx;
 		}
 		else
 		{
@@ -66,29 +67,45 @@ int main(int argc, char **argv)
 		int steps;
 		if(idx < args.size() && args[idx].find("--steps=") !=  string::npos)
 		{
+			if(mode == Detailed)
+			{
+				cerr << "Bad input. For more information try \"help\".\n";
+				return 1;
+			}
 			args[idx].erase (0,8);
 			steps = stoi(args[idx]);
+			++idx;
 		}
 		else
 		{
 			steps = 1; //by default
 		}
 		
-		/*ifstream file_of_matrix;
-		if(argv[7])
+		matrix scores; 
+		ifstream file_of_matrix;
+		if(idx < args.size() && args[idx].find("--matrix=") !=  string::npos)
 		{
-			file_of_matrix.open(argv[7]);
-			if(!file_of_matrix)
+			if(mode == Tournament)
 			{
-				cout « "Can't open file of matrix.\n"
+				cerr << "Bad input. For more information try \"help\".\n";
 				return 1;
 			}
-		}*/
 
-			user info;
+			args[idx].erase (0,9);
+			file_of_matrix.open(argv[idx]);
 
-			info.user_interface(name_of_strategy, name_of_strategy.size(), mode, steps);
+			if(!file_of_matrix)
+			{
+				cout << "Can't open file of matrix.\n";
+				return 1;
+			}
+			scores = extract_matrix(file_of_matrix);
+		}
 
-			return 0;
+		user info;
+
+		info.user_interface(name_of_strategy, name_of_strategy.size(), mode, steps, scores);
+
+		return 0;
 	}
 }

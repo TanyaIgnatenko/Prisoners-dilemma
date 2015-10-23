@@ -9,14 +9,16 @@
 #include "user.h"
 #include "enum.h"
 #include "game.h"
+#include "matrix.h"
 
 using namespace std;
+using namespace for_matrix;
 
-void user::user_interface(vector<string> & name_of_strategy, int count_of_strategies, Mode & mode, int & steps)
+void user::user_interface(vector<string> & name_of_strategy, int count_of_strategies, Mode & mode, int & steps, matrix & scores)
 {
 	if(Detailed == mode)
 	{
-		Game game(name_of_strategy[0], name_of_strategy[1], name_of_strategy[2]);
+		Game game(name_of_strategy[0], name_of_strategy[1], name_of_strategy[2], scores);
 		string command;
 
 		for(;;)
@@ -52,7 +54,7 @@ void user::user_interface(vector<string> & name_of_strategy, int count_of_strate
 	else if(Fast == mode)
 	{
 		cout << "Fast" <<endl;
-		Game game(name_of_strategy[0], name_of_strategy[1], name_of_strategy[2]);
+		Game game(name_of_strategy[0], name_of_strategy[1], name_of_strategy[2], scores);
 		for (int i = 0; i < steps; ++i)
 		{
 			game.tick();
@@ -74,7 +76,7 @@ void user::user_interface(vector<string> & name_of_strategy, int count_of_strate
 				for (int k = j + 1; k < count_of_strategies; ++k)
 				{
 
-					Game game(name_of_strategy[i], name_of_strategy[j], name_of_strategy[k]);
+					Game game(name_of_strategy[i], name_of_strategy[j], name_of_strategy[k], scores);
 
 					for (int i = 0; i < steps; ++i)
 					{

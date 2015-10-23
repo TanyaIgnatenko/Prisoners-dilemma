@@ -1,5 +1,3 @@
-#ifndef BADSTRATEGY_H
-#define BADSTRATEGY_H
 #include <string>
 #include "strategy.h"
 #include "factory.h"
@@ -10,11 +8,10 @@ using namespace std;
 class BadStrategy : public Strategy
 {
 public:
-	BadStrategy(): name(string("BadStrategy")){}
+	BadStrategy(){}
 	~BadStrategy(){}
 	BadStrategy(const BadStrategy & other){}
 	choice decide() const {return Betray;}
-	const string & get_name() const {return name;}
 
 	class Creator : public Strategy::Creator
 	{
@@ -24,13 +21,9 @@ public:
 			return new BadStrategy;
 		}
 	};
-
-private:
-	const string name;
 };
 
 namespace
 {
 	bool b2 = Factory<string, Strategy, Strategy::Creator>::instance()->doregister("BadStrategy", new BadStrategy::Creator);
 }
-#endif
