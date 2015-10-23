@@ -1,3 +1,4 @@
+#include <iostream>
 #include "game.h"
 #include "matrix.h"
 #include "factory.h"
@@ -25,7 +26,7 @@ void Game::tick()
 		choice x1 = prisoner1->decide();
 		choice x2 = prisoner2->decide();
 		choice x3 = prisoner3->decide();
-		
+
 		prisoner1->enemy_choices(x2, x3);
 		prisoner2->enemy_choices(x1, x3);
 		prisoner3->enemy_choices(x1, x2);
