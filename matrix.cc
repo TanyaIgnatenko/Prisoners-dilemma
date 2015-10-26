@@ -92,31 +92,39 @@ matrix matrix::operator=(const matrix & other)
 	scores2 = other.scores2;
 	scores3 = other.scores3;
 	empty = other.empty;
+	cout << "8" << endl;
 }
 
 matrix for_matrix::extract_matrix(ifstream & file)
 {
 	string name1;
+	cout << "entrance!" << endl;
 	file >> name1;
+	cout << "1" << endl;
 	std::vector<char> scores1;
 	char c;
 	file.get(c);
+	cout << "2" << endl;
 	while(c != '\n')// we skip spaces
 	{
 		file.get(c);
 		scores1.push_back(c);
 		file.get(c);
+		cout << "3" << endl;
 	}
 
 	string name2;
 	file >> name2;
+	cout << "4" << endl;
 	std::vector<char> scores2;
 	file.get(c);
+	cout << "5" << endl;
 	while(c != '\n')// we skip spaces
 	{
 		file.get(c);
 		scores2.push_back(c);
 		file.get(c);
+		cout << "6" << endl;
 	}
 
 	string name3;
@@ -128,9 +136,11 @@ matrix for_matrix::extract_matrix(ifstream & file)
 		file.get(c);
 		scores3.push_back(c);
 		file.get(c);
+		cout << "7" << endl;
 	}
 
 	matrix m1(name1, name2, name3, scores1, scores2, scores3);
+	cout << "almost exit!" << endl;
 		
 	return m1;
 }

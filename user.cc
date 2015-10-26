@@ -8,23 +8,21 @@
 using namespace std;
 using namespace for_matrix;
 
-
-bool compare(const pair<string, int> & a, const pair<string, int> & b)
+bool user::compare(const pair<string, int> & a, const pair<string, int> & b)
 {
 	return a.second < b.second; 
 }
 
-void user::print_results_of_tour(std::map<string, int> & sum_of_scores, std::vector<string> & name_of_strategy, int & count_of_strategies) const
+void user::print_results_of_tour(std::map<string, int> & sum_of_scores) const
 {
 	cout << "Scores of tour:" << endl;
-	std::vector<std::pair<string, int> > scores(count_of_strategies);
-	std::map<string, int>::iterator ptr = sum_of_scores.begin();
-	for (int i = 0; i < count_of_strategies; ++i, ++ptr)
+	std::vector<std::pair<string, int> > scores;
+	for (auto ptr = sum_of_scores.begin(); ptr != sum_of_scores.end(); ptr++)
 	{
-		scores[i] = *ptr;
+		scores.push_back(*ptr);
 	}
 	std::sort(scores.begin(), scores.end(), compare);
-	for (int i = 0; i < count_of_strategies; ++i)
+	for (int i = 0; i < scores.size(); ++i)
 	{
 		cout << scores[i].first << " " << scores[i].second << "\n";
 	}

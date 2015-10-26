@@ -13,7 +13,7 @@ public:
 	~TitForTatStrategy(){}
 	TitForTatStrategy(const TitForTatStrategy & other){}
 	choice decide() const;
-	void enemy_choices(choice a, choice b){ history->enemy_choices2.push_back(a); history->enemy_choices3.push_back(a); history->enemy_choices2.push_back(b);}
+	void enemy_choices(choice a, choice b){ history->enemy_choices2.push_back(a); history->enemy_choices3.push_back(b);}
 
 	class Creator : public Strategy::Creator
 	{

@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -14,7 +15,7 @@
 using namespace std;
 using namespace for_matrix;
 
-void user::user_interface(vector<string> & name_of_strategy, int count_of_strategies, Mode & mode, int & steps, matrix & scores)
+void user::user_interface(vector<string> & name_of_strategy, Mode & mode, int & steps, matrix & scores)
 {
 	if(Detailed == mode)
 	{
@@ -63,20 +64,34 @@ void user::user_interface(vector<string> & name_of_strategy, int count_of_strate
 	}
 	else if(Tournament == mode)
 	{
+		int k = 1;
 		std::map<string, int> sum_of_scores;
-		for (int i = 0; i < count_of_strategies; ++i)
+		std::vector<string> idx_names;
+		std::sort(name_of_strategy.begin(), name_of_strategy.end());
+
+		for (int i = 0; i < name_of_strategy.size(); ++i)
 		{
-			std::pair<const string, int> prisoner(name_of_strategy[i], 0);
-			sum_of_scores.insert(prisoner);
-		}
-		for (int i = 0; i <  count_of_strategies; ++i)
-		{
-			for (int j = i + 1; j < count_of_strategies; ++j)
+			if(i != 0 && name_of_strategy[i] == name_of_strategy[i-1])
 			{
-				for (int k = j + 1; k < count_of_strategies; ++k)
+				idx_names.push_back(name_of_strategy[i]+"_"+to_string(k));
+				++k;
+			}
+			else
+			{
+				k = 1;
+				idx_names.push_back(name_of_strategy[i]+"_0");
+			}
+			std::pair<const string, int> prisoner(idx_names.back(), 0);
+			sum_of_scores.insert(prisoner).second;
+		}
+		for (int i = 0; i <  name_of_strategy.size(); ++i)
+		{
+			for (int j = i + 1; j < name_of_strategy.size(); ++j)
+			{
+				for (int k = j + 1; k < name_of_strategy.size(); ++k)
 				{
 
-					Game game(name_of_strategy[i], name_of_strategy[j], name_of_strategy[k], scores);
+					Game game(idx_names[i], idx_names[j], idx_names[k], scores);
 
 					for (int i = 0; i < steps; ++i)
 					{
@@ -84,15 +99,16 @@ void user::user_interface(vector<string> & name_of_strategy, int count_of_strate
 					}
 					game.print_game_scores();
 
-					sum_of_scores[name_of_strategy[i]] += game.get_game_scores(1);
-					sum_of_scores[name_of_strategy[j]] += game.get_game_scores(2);
-					sum_of_scores[name_of_strategy[k]] += game.get_game_scores(3);
+					sum_of_scores[idx_names[i]] += game.get_game_scores(1);
+					sum_of_scores[idx_names[j]] += game.get_game_scores(2);
+					sum_of_scores[idx_names[k]] += game.get_game_scores(3);
 				}
 			}
 		}
-		
-		print_results_of_tour(sum_of_scores, name_of_strategy, count_of_strategies);
+
+		print_results_of_tour(sum_of_scores);
 	}
 }
+
 
 
