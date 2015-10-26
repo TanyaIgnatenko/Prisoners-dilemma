@@ -1,9 +1,9 @@
 #ifndef STRATEGY_H
 #define STRATEGY_H
+
 #include <vector>
-#include <string>
+
 #include "enum.h"
-using namespace std;
 
 struct History
 {

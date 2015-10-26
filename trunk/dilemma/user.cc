@@ -1,19 +1,22 @@
 #include <algorithm>
+#include <utility>
 #include <iostream>
 #include <string>
 #include <map>
 
 #include "user.h"
 #include "matrix.h"
-using namespace std;
+
 using namespace for_matrix;
+using std::string;
+using std::map;
 
 bool user::compare(const pair<string, int> & a, const pair<string, int> & b)
 {
 	return a.second < b.second; 
 }
 
-void user::print_results_of_tour(std::map<string, int> & sum_of_scores) const
+void user::print_results_of_tour(map<string, int> & sum_of_scores) const
 {
 	cout << "Scores of tour:" << endl;
 	std::vector<std::pair<string, int> > scores;

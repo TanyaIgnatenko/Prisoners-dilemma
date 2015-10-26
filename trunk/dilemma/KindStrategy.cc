@@ -1,8 +1,8 @@
 #include <string>
+
 #include "strategy.h"
 #include "factory.h"
 #include "enum.h"
-using namespace std;
 
 class KindStrategy : public Strategy::Strategy
 {
@@ -15,5 +15,5 @@ public:
 
 namespace
 {
-	bool b = Factory<string, Strategy>::instance()->doregister<KindStrategy>("KindStrategy");
+	bool b = Factory<std::string, Strategy>::instance()->doregister<KindStrategy>("KindStrategy");
 }

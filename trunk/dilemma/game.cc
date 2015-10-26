@@ -1,13 +1,14 @@
-#include <iostream>
+#include <string>
+
 #include "game.h"
 #include "matrix.h"
 #include "factory.h"
 #include "strategy.h"
 #include "enum.h"
-using namespace std;
+
 using namespace for_matrix;
 
-void erase_digits(string & name)
+void erase_digits(std::string & name)
 {
 	int found = name.find_last_of("_");
 	while (found!=std::string::npos)
@@ -16,7 +17,7 @@ void erase_digits(string & name)
 		found =name.find_first_of("0123456789",found);
 	}
 }
-Game::Game(string n1, string n2, string n3, matrix sc) : scores(n1, n2, n3)
+Game::Game(std::string n1, std::string n2, std::string n3, matrix & sc) : scores(n1, n2, n3)
 {
 	if(!sc.is_empty())
 	{
@@ -25,9 +26,9 @@ Game::Game(string n1, string n2, string n3, matrix sc) : scores(n1, n2, n3)
 	erase_digits(n1);
 	erase_digits(n2);
 	erase_digits(n3);
-	prisoner1 = Factory<string, Strategy>::instance()->create(n1);
-	prisoner2 = Factory<string, Strategy>::instance()->create(n2);
-	prisoner3 = Factory<string, Strategy>::instance()->create(n3);
+	prisoner1 = Factory<std::string, Strategy>::instance()->create(n1);
+	prisoner2 = Factory<std::string, Strategy>::instance()->create(n2);
+	prisoner3 = Factory<std::string, Strategy>::instance()->create(n3);
 }
 
 void Game::tick()
