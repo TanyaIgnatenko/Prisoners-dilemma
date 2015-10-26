@@ -19,11 +19,7 @@ public:
 	virtual ~Strategy(){}
 	virtual choice decide() const = 0;
 	virtual void enemy_choices(choice , choice){}
-	class Creator
-	{
-	public:
-		virtual Strategy * operator()() const = 0;	
-	};
+	
 protected:
 	History *history = nullptr;
 };

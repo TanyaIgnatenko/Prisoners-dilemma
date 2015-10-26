@@ -14,16 +14,6 @@ public:
 	TitForTatStrategy(const TitForTatStrategy & other){}
 	choice decide() const;
 	void enemy_choices(choice a, choice b){ history->enemy_choices2.push_back(a); history->enemy_choices3.push_back(b);}
-
-	class Creator : public Strategy::Creator
-	{
-	public:
-		Strategy * operator()() const
-		{
-			return new TitForTatStrategy;
-		}
-	};
-
 };
 
 choice TitForTatStrategy::decide() const
@@ -46,5 +36,5 @@ choice TitForTatStrategy::decide() const
 }
 namespace
 {
-	bool b2 = Factory<string, Strategy, Strategy::Creator>::instance()->doregister("TitForTatStrategy", new TitForTatStrategy::Creator);
+	bool b = Factory<string, Strategy>::instance()->doregister<TitForTatStrategy>("TitForTatStrategy");
 }

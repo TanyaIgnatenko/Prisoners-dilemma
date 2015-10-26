@@ -3,10 +3,24 @@
 #include <map>
 #include "strategy.h"
 
-template <class ID, class PRODUCT, class CREATOR>
+class abstractCreator
+{
+public:
+	virtual Strategy * operator()() const = 0;
+};
+
+template <class C>
+class Creator : public abstractCreator
+{
+public:
+	Strategy * operator()() const { return new C(); }
+};
+
+template <class ID, class PRODUCT>
 class Factory
 {
 public:
+
 	PRODUCT * create(const ID & id)
 	{
 		auto creator = creators_.find(id);
@@ -16,10 +30,15 @@ public:
 		}
 		return nullptr;
 	}	
-
-	bool doregister(const ID & id, CREATOR * cr)
+	
+	template <class C>
+	bool doregister(const ID & id)
 	{
-		creators_[id] = cr;
+		auto it = creators_.find(id);
+		if (creators_.end() == it)
+		{
+			creators_[id] = new Creator<C>();
+		}
 		return true;
 	}
 
@@ -32,7 +51,7 @@ public:
 private:
 	Factory(){}
 	~Factory(){}
-	std::map<ID, CREATOR*> creators_;
+	std::map<ID, abstractCreator*> creators_;
 };
 
 #endif

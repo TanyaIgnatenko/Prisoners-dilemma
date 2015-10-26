@@ -16,19 +16,10 @@ public:
 	~RandomStrategy(){}
 	RandomStrategy(const RandomStrategy & other){}
 	choice decide() const {random_device rand; int x = rand() % 2; return x ? Betray : RemainSilent;}
-
-	class Creator : public Strategy::Creator
-	{
-	public:
-		Strategy * operator()() const
-		{
-			return new RandomStrategy;
-		}
-	};
 };
 
 namespace
 {
-	bool b3 = Factory<string, Strategy, Strategy::Creator>::instance()->doregister("RandomStrategy", new RandomStrategy::Creator);
+	bool b = Factory<string, Strategy>::instance()->doregister<RandomStrategy>("RandomStrategy");
 }
 #endif
