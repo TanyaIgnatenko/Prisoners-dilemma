@@ -42,7 +42,12 @@ public:
 		return true;
 	}
 
-	static Factory * instance()
+	bool is_registered(const ID & id)
+	{
+		return ((creators_.find(id) != creators_.end()) ? true : false);
+	}
+
+	static Factory * instance()// почему именно указатель отдаем, а не ссылку
 	{
 		static Factory f;
 		return &f;
