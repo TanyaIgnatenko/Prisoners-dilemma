@@ -9,7 +9,7 @@ using namespace for_matrix;
 
 void erase_digits(string & name)
 {
-	int found = name.find("_");
+	int found = name.find_last_of("_");
 	while (found!=std::string::npos)
 	{
 		name.erase(found, 1);
