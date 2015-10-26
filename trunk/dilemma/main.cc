@@ -92,19 +92,22 @@ int main(int argc, char **argv)
 			}
 
 			args[idx].erase (0,9);
-			file_of_matrix.open(argv[idx]);
-
+			cout << args[idx] << endl;
+			file_of_matrix.open("in");
 			if(!file_of_matrix)
 			{
 				cout << "Can't open file of matrix.\n";
 				return 1;
 			}
 			scores = extract_matrix(file_of_matrix);
+			cout << "exit!" << endl;
+			scores.print_game_scores();
+			idx++;
 		}
 
 		user info;
 
-		info.user_interface(name_of_strategy, name_of_strategy.size(), mode, steps, scores);
+		info.user_interface(name_of_strategy, mode, steps, scores);
 
 		return 0;
 	}

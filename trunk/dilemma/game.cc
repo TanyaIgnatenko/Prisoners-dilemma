@@ -7,13 +7,24 @@
 using namespace std;
 using namespace for_matrix;
 
-Game::Game(string & n1, string & n2, string & n3, matrix sc) : scores(n1, n2, n3)
+void erase_digits(string & name)
+{
+	int found = name.find("_");
+	while (found!=std::string::npos)
+	{
+		name.erase(found, 1);
+		found =name.find_first_of("0123456789",found);
+	}
+}
+Game::Game(string n1, string n2, string n3, matrix sc) : scores(n1, n2, n3)
 {
 	if(!sc.is_empty())
 	{
 		scores = sc;
-	}
-
+	}	
+	erase_digits(n1);
+	erase_digits(n2);
+	erase_digits(n3);
 	prisoner1 = Factory<string, Strategy, Strategy::Creator>::instance()->create(n1);
 	prisoner2 = Factory<string, Strategy, Strategy::Creator>::instance()->create(n2);
 	prisoner3 = Factory<string, Strategy, Strategy::Creator>::instance()->create(n3);
