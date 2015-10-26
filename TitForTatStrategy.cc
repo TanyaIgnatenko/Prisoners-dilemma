@@ -1,10 +1,8 @@
 #include <string>
-#include <iostream>
+
 #include "strategy.h"
 #include "factory.h"
 #include "enum.h"
-using namespace std;
-
 
 class TitForTatStrategy : public Strategy
 {
@@ -36,5 +34,5 @@ choice TitForTatStrategy::decide() const
 }
 namespace
 {
-	bool b = Factory<string, Strategy>::instance()->doregister<TitForTatStrategy>("TitForTatStrategy");
+	bool b = Factory<std::string, Strategy>::instance()->doregister<TitForTatStrategy>("TitForTatStrategy");
 }

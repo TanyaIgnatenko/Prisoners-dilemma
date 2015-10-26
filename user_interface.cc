@@ -1,8 +1,8 @@
-#include <algorithm>
 #include <iostream>
-#include <string>
-#include <cstring>
 #include <fstream>
+#include <algorithm>
+#include <utility>
+#include <string>
 #include <vector>
 #include <map>
 #include <cstdlib>
@@ -12,8 +12,11 @@
 #include "game.h"
 #include "matrix.h"
 
-using namespace std;
 using namespace for_matrix;
+using std::string;
+using std::vector;
+using std::pair;
+using std::map;
 
 void user::user_interface(vector<string> & name_of_strategy, Mode & mode, int & steps, matrix & scores)
 {
@@ -54,7 +57,6 @@ void user::user_interface(vector<string> & name_of_strategy, Mode & mode, int & 
 	}
 	else if(Fast == mode)
 	{
-		cout << "Fast" <<endl;
 		Game game(name_of_strategy[0], name_of_strategy[1], name_of_strategy[2], scores);
 		for (int i = 0; i < steps; ++i)
 		{
@@ -65,8 +67,8 @@ void user::user_interface(vector<string> & name_of_strategy, Mode & mode, int & 
 	else if(Tournament == mode)
 	{
 		int k = 1;
-		std::map<string, int> sum_of_scores;
-		std::vector<string> idx_names;
+		map<string, int> sum_of_scores;
+		vector<string> idx_names;
 		std::sort(name_of_strategy.begin(), name_of_strategy.end());
 
 		for (int i = 0; i < name_of_strategy.size(); ++i)
@@ -81,7 +83,7 @@ void user::user_interface(vector<string> & name_of_strategy, Mode & mode, int & 
 				k = 1;
 				idx_names.push_back(name_of_strategy[i]+"_0");
 			}
-			std::pair<const string, int> prisoner(idx_names.back(), 0);
+			pair<const string, int> prisoner(idx_names.back(), 0);
 			sum_of_scores.insert(prisoner).second;
 		}
 		for (int i = 0; i <  name_of_strategy.size(); ++i)

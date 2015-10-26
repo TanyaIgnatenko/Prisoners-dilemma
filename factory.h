@@ -1,6 +1,8 @@
 #ifndef FACTORY_H
 #define FACTORY_H
+
 #include <map>
+
 #include "strategy.h"
 
 class abstractCreator
@@ -47,7 +49,7 @@ public:
 		return ((creators_.find(id) != creators_.end()) ? true : false);
 	}
 
-	static Factory * instance()// почему именно указатель отдаем, а не ссылку
+	static Factory * instance()
 	{
 		static Factory f;
 		return &f;

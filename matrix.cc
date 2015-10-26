@@ -1,11 +1,17 @@
+#include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
-#include <iostream>
-#include "matrix.h"
-using namespace std;
-using namespace for_matrix;
 
-inline matrix::matrix(string n1, string n2, string n3, std::vector<char> sc1, std::vector<char> sc2, std::vector<char> sc3)
+#include "matrix.h"
+
+using namespace for_matrix;
+using std::string;
+using std::vector;
+using std::cout;
+using std::endl;
+
+inline matrix::matrix(string & n1, string & n2, string & n3, vector<char> & sc1, vector<char>  & sc2, vector<char> & sc3)
 : name_of_strategy1(n1), name_of_strategy2(n2), name_of_strategy3(n3), scores1(sc1), scores2(sc2), scores3(sc3), empty(0)
 {}
 
@@ -95,52 +101,43 @@ matrix matrix::operator=(const matrix & other)
 	cout << "8" << endl;
 }
 
-matrix for_matrix::extract_matrix(ifstream & file)
+matrix for_matrix::extract_matrix(std::ifstream & file)
 {
 	string name1;
-	cout << "entrance!" << endl;
 	file >> name1;
-	cout << "1" << endl;
-	std::vector<char> scores1;
+	vector<char> scores1;
 	char c;
 	file.get(c);
-	cout << "2" << endl;
 	while(c != '\n')// we skip spaces
 	{
 		file.get(c);
 		scores1.push_back(c);
 		file.get(c);
-		cout << "3" << endl;
 	}
 
 	string name2;
 	file >> name2;
-	cout << "4" << endl;
-	std::vector<char> scores2;
+	vector<char> scores2;
 	file.get(c);
-	cout << "5" << endl;
 	while(c != '\n')// we skip spaces
 	{
 		file.get(c);
 		scores2.push_back(c);
 		file.get(c);
-		cout << "6" << endl;
 	}
 
 	string name3;
 	file >> name3;
-	std::vector<char> scores3;
+	vector<char> scores3;
 	file.get(c);
 	while(c != '\n')// we skip spaces
 	{
 		file.get(c);
 		scores3.push_back(c);
 		file.get(c);
-		cout << "7" << endl;
 	}
 
 	matrix m1(name1, name2, name3, scores1, scores2, scores3);
-	cout << "almost exit!" << endl;
 		
 	return m1;
 }
