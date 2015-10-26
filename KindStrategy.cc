@@ -11,18 +11,9 @@ public:
 	~KindStrategy(){}
 	KindStrategy(const KindStrategy & other){}
 	choice decide() const {return RemainSilent;}
-
-	class Creator : public Strategy::Creator
-	{
-	public:
-		Strategy * operator()() const
-		{
-			return new KindStrategy;
-		}
-	};
 };
 
 namespace
 {
-	bool b1 = Factory<string, Strategy, Strategy::Creator>::instance()->doregister("KindStrategy", new KindStrategy::Creator);
+	bool b = Factory<string, Strategy>::instance()->doregister<KindStrategy>("KindStrategy");
 }

@@ -12,18 +12,9 @@ public:
 	~BadStrategy(){}
 	BadStrategy(const BadStrategy & other){}
 	choice decide() const {return Betray;}
-
-	class Creator : public Strategy::Creator
-	{
-	public:
-		Strategy * operator()() const
-		{
-			return new BadStrategy;
-		}
-	};
 };
 
 namespace
 {
-	bool b2 = Factory<string, Strategy, Strategy::Creator>::instance()->doregister("BadStrategy", new BadStrategy::Creator);
+	bool b = Factory<string, Strategy>::instance()->doregister<BadStrategy>("BadStrategy");
 }

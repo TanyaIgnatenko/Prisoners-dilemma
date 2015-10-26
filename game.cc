@@ -25,9 +25,9 @@ Game::Game(string n1, string n2, string n3, matrix sc) : scores(n1, n2, n3)
 	erase_digits(n1);
 	erase_digits(n2);
 	erase_digits(n3);
-	prisoner1 = Factory<string, Strategy, Strategy::Creator>::instance()->create(n1);
-	prisoner2 = Factory<string, Strategy, Strategy::Creator>::instance()->create(n2);
-	prisoner3 = Factory<string, Strategy, Strategy::Creator>::instance()->create(n3);
+	prisoner1 = Factory<string, Strategy>::instance()->create(n1);
+	prisoner2 = Factory<string, Strategy>::instance()->create(n2);
+	prisoner3 = Factory<string, Strategy>::instance()->create(n3);
 }
 
 void Game::tick()
