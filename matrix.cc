@@ -5,14 +5,13 @@
 
 #include "matrix.h"
 
-using namespace for_matrix;
 using std::string;
 using std::vector;
 using std::cout;
 using std::endl;
 
-inline matrix::matrix(string & n1, string & n2, string & n3, vector<char> & sc1, vector<char>  & sc2, vector<char> & sc3)
-: name_of_strategy1(n1), name_of_strategy2(n2), name_of_strategy3(n3), scores1(sc1), scores2(sc2), scores3(sc3), empty(0)
+matrix::matrix(string & n1, string & n2, string & n3, vector<char> & sc1, vector<char>  & sc2, vector<char> & sc3)
+: strategy_name1(n1), strategy_name2(n2), strategy_name3(n3), scores1(sc1), scores2(sc2), scores3(sc3), empty(0)
 {}
 
 void matrix::add_scores(char sc1, char sc2, char sc3)
@@ -61,9 +60,9 @@ void matrix::print_move_scores() const
 {
 	cout << "Scores of move:" << endl;
 	int move = scores1.size() - 1;
-	cout << name_of_strategy1 << ": " << +scores1[move]<< endl;// unary + promotes to a type printable as a number, regardless of type
-	cout << name_of_strategy2 << ": " << +scores2[move]<< endl;// unary + promotes to a type printable as a number, regardless of type
-	cout << name_of_strategy3 << ": " << +scores3[move]<< endl;// unary + promotes to a type printable as a number, regardless of type
+	cout << strategy_name1 << ": " << +scores1[move]<< endl;// unary + promotes to a type printable as a number, regardless of type
+	cout << strategy_name2 << ": " << +scores2[move]<< endl;// unary + promotes to a type printable as a number, regardless of type
+	cout << strategy_name3 << ": " << +scores3[move]<< endl;// unary + promotes to a type printable as a number, regardless of type
 	cout << "" << endl;
 }
 
@@ -83,25 +82,23 @@ void matrix::print_game_scores() const
 		sum3 += scores3[i];
 	}
 	cout << "Scores of game:" << endl;
-	cout << name_of_strategy1 << ": " << sum1 << endl;
-	cout << name_of_strategy2 << ": " << sum2 << endl;
-	cout << name_of_strategy3 << ": " << sum3 << endl;
-	cout << "" << endl;
+	cout << strategy_name1 << ": " << sum1 << endl;
+	cout << strategy_name2 << ": " << sum2 << endl;
+	cout << strategy_name3 << ": " << sum3 << '\n' << endl;
 }
 
-matrix matrix::operator=(const matrix & other)
+matrix & matrix::operator=(const matrix & other)
 {
-	name_of_strategy1 = other.name_of_strategy1;
-	name_of_strategy2 = other.name_of_strategy2;
-	name_of_strategy3 = other.name_of_strategy3;
+	strategy_name1 = other.strategy_name1;
+	strategy_name2 = other.strategy_name2;
+	strategy_name3 = other.strategy_name3;
 	scores1 = other.scores1;
 	scores2 = other.scores2;
 	scores3 = other.scores3;
 	empty = other.empty;
-	cout << "8" << endl;
 }
 
-matrix for_matrix::extract_matrix(std::ifstream & file)
+void matrix::extract_matrix(std::ifstream & file)
 {
 	string name1;
 	file >> name1;
@@ -138,6 +135,6 @@ matrix for_matrix::extract_matrix(std::ifstream & file)
 	}
 
 	matrix m1(name1, name2, name3, scores1, scores2, scores3);
-		
-	return m1;
+
+	*this = m1;
 }

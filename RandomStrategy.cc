@@ -11,7 +11,7 @@ public:
 	RandomStrategy(){}
 	~RandomStrategy(){}
 	RandomStrategy(const RandomStrategy & other){}
-	choice decide() const {std::random_device rand; int x = rand() % 2; return x ? Betray : RemainSilent;}
+	choice decide() const {std::random_device rand; int x = rand() % 2; return x ? choice::Betray : choice::RemainSilent;}
 };
 
 namespace

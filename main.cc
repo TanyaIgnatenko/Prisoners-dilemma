@@ -9,8 +9,6 @@
 #include "matrix.h"
 #include "enum.h"
 
-using namespace for_matrix;
-
 int main(int argc, char **argv)
 { 	
 	if(4 > argc)
@@ -18,7 +16,6 @@ int main(int argc, char **argv)
 		std::cerr << "Wrong input. Please enter 4 arguments or more.\n";
 		return 1;
 	}
-
 	else
 	{
 		std::vector<string> args;
@@ -26,14 +23,14 @@ int main(int argc, char **argv)
 		{
 			args.push_back(std::string(argv[i]));
 		}
-		std::vector<string> name_of_strategy;
+		std::vector<string> strategy_name;
 
 		
 		for(auto it = args.begin(); ( it != args.end() && it->find(std::string("--")) == string::npos); ++it)
 		{
-			if(true == Factory<string, Strategy>::instance()->is_registered(*it))
+			if(Factory<string, Strategy>::instance()->is_registered(*it))
 			{
-				name_of_strategy.push_back(*it);
+				strategy_name.push_back(*it);
 			}
 			else
 			{
@@ -42,64 +39,63 @@ int main(int argc, char **argv)
 			}
 		}
 
-		if( 3 > name_of_strategy.size())
+		if( 3 > strategy_name.size())
 		{
 			cerr << "Wrong input. Please write correct count of strategies\n";
 			return 1;
 		}
 		
 		Mode mode;
-
-		int idx = name_of_strategy.size();
-		if(idx < args.size() && args[idx].find("--mode") !=  string::npos)
+		auto it = args.begin() + strategy_name.size();
+		if(it != args.end() && it->find("--mode") != string::npos)
 		{
-			if(args[idx] == "--mode=detailed")
+			if(*it == "--mode=detailed")
 			{
-				mode = Detailed;
+				mode = Mode::Detailed;
 			}
-			else if(args[idx] == "--mode=fast")
+			else if(*it == "--mode=fast")
 			{
-				mode = Fast;
+				mode = Mode::Fast;
 			}
-			else if(args[idx] == "--mode=tournament")
+			else if(*it == "--mode=tournament")
 			{
-				mode = Tournament;
+				mode = Mode::Tournament;
 			}	
 			else
 			{
 				std::cerr << "Wrong input. Please write correct name of mode or don't do it.\n";
 				return 1;	
 			}
-			++idx;
+			++it;
 		}
-		else if(3 < name_of_strategy.size())
+		else if(3 < strategy_name.size())
 		{
-			mode = Tournament; //by default if count of strategies is more than 3
+			mode = Mode::Tournament; //by default if count of strategies is more than 3
 		}
 		else
 		{
-			mode = Detailed; //by default if count of strategies equals 3
+			mode = Mode::Detailed; //by default if count of strategies equals 3
 		}
 
 		int steps;
 		try
 		{
-			if(idx < args.size() && args[idx].find("--steps=") !=  string::npos)
+			if(it != args.end() && it->find("--steps=") !=  string::npos)
 			{
-				if(mode == Detailed)
+				if(mode == Mode::Detailed)
 				{
 					cerr << "Wrong input. Detailed mode doesn't need arg of steps.\n";
 					return 1;
 				}
-				args[idx].erase (0,8);
-				steps = std::stoi(args[idx]);
-				if( 0 > steps)
+				it->erase (0,8);
+				steps = std::stoi(*it);
+				if( 0 >= steps)
 				{
 					cerr << "Wrong input. Count of steps must be a positive natural number.\n";
 					return 1;
 				}
 
-				++idx;
+				++it;
 			}
 			else
 			{
@@ -114,33 +110,34 @@ int main(int argc, char **argv)
 
 		matrix scores; 
 		std::ifstream file_of_matrix;
-		if(idx < args.size() && args[idx].find("--matrix=") !=  string::npos)
+		if(it != args.end() && it->find("--matrix=") !=  string::npos)
 		{
-			if(mode == Tournament)
+			if(mode == Mode::Tournament)
 			{
 				std::cerr << "Wrong input. Tournament doesn't need arg of file of matrix.\n";
 				return 1;
 			}
 
-			args[idx].erase (0,9);
+			it->erase(0,9);
 			file_of_matrix.open("in");
 			if(!file_of_matrix)
 			{
 				std::cerr << "Can't open file of matrix.\n";
 				return 1;
 			}
-			scores = extract_matrix(file_of_matrix);
-			idx++;
+			scores.extract_matrix(file_of_matrix);
+			++it;
 		}
 
-		if(idx < argc)
+		if(it != args.end())
 		{
 			std::cerr << "Wrong input. You had wrote unneccessary args.\n";
+			return 1;
 		}
 
 		user info;
 
-		info.user_interface(name_of_strategy, mode, steps, scores);
+		info.user_interface(strategy_name, mode, steps, scores);
 
 		return 0;
 	}

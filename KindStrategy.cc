@@ -10,7 +10,7 @@ public:
 	KindStrategy(){}
 	~KindStrategy(){}
 	KindStrategy(const KindStrategy & other){}
-	choice decide() const {return RemainSilent;}
+	choice decide() const {return choice::RemainSilent;}
 };
 
 namespace
