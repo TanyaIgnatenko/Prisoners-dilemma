@@ -1,7 +1,9 @@
 #ifndef ENUM_H
 #define ENUM_H
 
-enum class choice {Betray, RemainSilent};
-enum class Mode {Detailed, Fast, Tournament};
+#include <cstdint>
+
+enum class choice : std::int8_t {Betray, RemainSilent};
+enum class Mode : std::int8_t {Detailed, Fast, Tournament};
 
 #endif
