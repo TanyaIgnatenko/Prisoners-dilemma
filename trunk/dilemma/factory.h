@@ -46,7 +46,7 @@ public:
 
 	bool is_registered(const ID & id)
 	{
-		return ((creators_.find(id) != creators_.end()) ? true : false);
+		return creators_.find(id) != creators_.end();
 	}
 
 	static Factory * instance()

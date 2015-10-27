@@ -7,11 +7,10 @@
 #include "user.h"
 #include "matrix.h"
 
-using namespace for_matrix;
 using std::string;
 using std::map;
 
-bool user::compare(const pair<string, int> & a, const pair<string, int> & b)
+bool user::pair_second_compare(const pair<string, int> & a, const pair<string, int> & b)
 {
 	return a.second < b.second; 
 }
@@ -24,7 +23,7 @@ void user::print_results_of_tour(map<string, int> & sum_of_scores) const
 	{
 		scores.push_back(*ptr);
 	}
-	std::sort(scores.begin(), scores.end(), compare);
+	std::sort(scores.begin(), scores.end(), pair_second_compare);
 	for (int i = 0; i < scores.size(); ++i)
 	{
 		cout << scores[i].first << " " << scores[i].second << "\n";
@@ -37,5 +36,5 @@ void user::print_results_of_tour(map<string, int> & sum_of_scores) const
 	{
 		 cout << scores[i].first << " " << scores[i].second << "\n"; 
 	}
-	cout << "" << endl;
+	cout << endl;
 }

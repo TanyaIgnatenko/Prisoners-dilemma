@@ -9,14 +9,12 @@
 #include "matrix.h"
 #include "enum.h"
 
-using namespace for_matrix;
-
 class user
 {
 public:
-	void user_interface(vector<std::string> & name_of_strategy, Mode & mode, int & steps, matrix & scores);
+	void user_interface(vector<std::string> & strategy_name, Mode mode, int steps, matrix & scores);
 	void print_results_of_tour(std::map<std::string, int> & sum_of_scores) const;
 private:
-	static bool compare(const std::pair<std::string, int> & a, const std::pair<std::string, int> & b);
+	static bool pair_second_compare(const std::pair<std::string, int> & a, const std::pair<std::string, int> & b);
 };
 #endif

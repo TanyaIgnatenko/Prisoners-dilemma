@@ -9,8 +9,8 @@ class BadStrategy : public Strategy
 public:
 	BadStrategy(){}
 	~BadStrategy(){}
-	BadStrategy(const BadStrategy & other){}
-	choice decide() const {return Betray;}
+	BadStrategy(const BadStrategy & other ){}
+	choice decide() const {return choice::Betray;}
 };
 
 namespace

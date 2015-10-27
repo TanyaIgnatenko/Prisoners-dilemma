@@ -6,23 +6,20 @@
 #include "strategy.h"
 #include "matrix.h"
 
-using namespace for_matrix;
-
-
 class Game
 {
 public:
 	Game(std::string n1, std::string n2, std::string n3, matrix & sc);
-	Game(const Game & other) : scores(other.scores), prisoner1(other.prisoner1), prisoner2(other.prisoner2), prisoner3(other.prisoner3){}
 	~Game() { delete prisoner1; delete prisoner2; delete prisoner3;}
 	void tick();
 
-	int get_game_scores(int number_of_prisoner) const {return scores.get_game_scores(number_of_prisoner);}
+	int get_game_scores(int prisoner_number) const {return scores.get_game_scores(prisoner_number);}
 	void print_move_scores() const {scores.print_move_scores();}
 	void print_game_scores() const {scores.print_game_scores();}
 
 private:
-
+	Game(const Game & other){}
+	Game & operator = (const Game & other){}
 	Strategy *prisoner1 = nullptr;
 	Strategy *prisoner2 = nullptr;
 	Strategy *prisoner3 = nullptr;

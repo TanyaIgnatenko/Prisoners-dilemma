@@ -12,17 +12,16 @@
 #include "game.h"
 #include "matrix.h"
 
-using namespace for_matrix;
 using std::string;
 using std::vector;
 using std::pair;
 using std::map;
 
-void user::user_interface(vector<string> & name_of_strategy, Mode & mode, int & steps, matrix & scores)
+void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, matrix & scores)
 {
-	if(Detailed == mode)
+	if(Mode::Detailed == mode)
 	{
-		Game game(name_of_strategy[0], name_of_strategy[1], name_of_strategy[2], scores);
+		Game game(strategy_name[0], strategy_name[1], strategy_name[2], scores);
 		string command;
 
 		for(;;)
@@ -55,42 +54,42 @@ void user::user_interface(vector<string> & name_of_strategy, Mode & mode, int & 
 			command.erase();
 		}
 	}
-	else if(Fast == mode)
+	else if(Mode::Fast == mode)
 	{
-		Game game(name_of_strategy[0], name_of_strategy[1], name_of_strategy[2], scores);
+		Game game(strategy_name[0], strategy_name[1], strategy_name[2], scores);
 		for (int i = 0; i < steps; ++i)
 		{
 			game.tick();
 		}
 		game.print_game_scores();
 	}
-	else if(Tournament == mode)
+	else if(Mode::Tournament == mode)
 	{
 		int k = 1;
 		map<string, int> sum_of_scores;
 		vector<string> idx_names;
-		std::sort(name_of_strategy.begin(), name_of_strategy.end());
+		std::sort(strategy_name.begin(), strategy_name.end());
 
-		for (int i = 0; i < name_of_strategy.size(); ++i)
+		for (int i = 0; i < strategy_name.size(); ++i)
 		{
-			if(i != 0 && name_of_strategy[i] == name_of_strategy[i-1])
+			if(i != 0 && strategy_name[i] == strategy_name[i-1])
 			{
-				idx_names.push_back(name_of_strategy[i]+"_"+to_string(k));
+				idx_names.push_back(strategy_name[i]+"_"+to_string(k));
 				++k;
 			}
 			else
 			{
 				k = 1;
-				idx_names.push_back(name_of_strategy[i]+"_0");
+				idx_names.push_back(strategy_name[i]+"_0");
 			}
 			pair<const string, int> prisoner(idx_names.back(), 0);
 			sum_of_scores.insert(prisoner).second;
 		}
-		for (int i = 0; i <  name_of_strategy.size(); ++i)
+		for (int i = 0; i <  strategy_name.size(); ++i)
 		{
-			for (int j = i + 1; j < name_of_strategy.size(); ++j)
+			for (int j = i + 1; j < strategy_name.size(); ++j)
 			{
-				for (int k = j + 1; k < name_of_strategy.size(); ++k)
+				for (int k = j + 1; k < strategy_name.size(); ++k)
 				{
 
 					Game game(idx_names[i], idx_names[j], idx_names[k], scores);
