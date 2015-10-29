@@ -1,21 +1,21 @@
-#include <iostream>
-#include <fstream>
 #include <algorithm>
-#include <utility>
-#include <string>
-#include <vector>
-#include <map>
 #include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <string>
+#include <utility>
+#include <vector>
 
-#include "user.h"
 #include "enum.h"
 #include "game.h"
 #include "matrix.h"
+#include "user.h"
 
+using std::map;
+using std::pair;
 using std::string;
 using std::vector;
-using std::pair;
-using std::map;
 
 void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, matrix & scores)
 {

@@ -1,9 +1,9 @@
-#include <string>
 #include <random>  
+#include <string>
 
-#include "strategy.h"
-#include "factory.h"
 #include "enum.h"
+#include "factory.h"
+#include "strategy.h"
 
 class RandomStrategy : public Strategy
 {

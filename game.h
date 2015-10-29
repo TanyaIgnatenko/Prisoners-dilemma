@@ -3,8 +3,8 @@
 
 #include <string>
 
-#include "strategy.h"
 #include "matrix.h"
+#include "strategy.h"
 
 class Game
 {
