@@ -1,14 +1,14 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <vector>
 
 #include "matrix.h"
 
-using std::string;
-using std::vector;
 using std::cout;
 using std::endl;
+using std::string;
+using std::vector;
 
 matrix::matrix(string & n1, string & n2, string & n3, vector<char> & sc1, vector<char>  & sc2, vector<char> & sc3)
 : strategy_name1(n1), strategy_name2(n2), strategy_name3(n3), scores1(sc1), scores2(sc2), scores3(sc3), empty(0)

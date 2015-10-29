@@ -1,8 +1,8 @@
 #include <fstream>
-#include <vector>
-#include <string>
 #include <iostream>
 #include <stdexcept>
+#include <string>
+#include <vector>
 
 #include "user.h"
 #include "factory.h"

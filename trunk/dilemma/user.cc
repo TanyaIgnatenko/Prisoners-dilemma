@@ -1,11 +1,11 @@
 #include <algorithm>
-#include <utility>
 #include <iostream>
-#include <string>
 #include <map>
+#include <string>
+#include <utility>
 
-#include "user.h"
 #include "matrix.h"
+#include "user.h"
 
 using std::string;
 using std::map;

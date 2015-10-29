@@ -1,13 +1,13 @@
 #ifndef USER_H
 #define USER_H
 
-#include <utility>
-#include <string>
-#include <vector>
 #include <map>
+#include <string>
+#include <utility>
+#include <vector>
 
-#include "matrix.h"
 #include "enum.h"
+#include "matrix.h"
 
 class user
 {

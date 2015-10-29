@@ -1,10 +1,10 @@
 #include <string>
 
+#include "enum.h"
+#include "factory.h"
 #include "game.h"
 #include "matrix.h"
-#include "factory.h"
 #include "strategy.h"
-#include "enum.h"
 
 void erase_digits(std::string & name)
 {
