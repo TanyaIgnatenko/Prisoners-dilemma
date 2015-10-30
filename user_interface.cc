@@ -24,8 +24,11 @@ void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, 
 		Game game(strategy_name[0], strategy_name[1], strategy_name[2], scores);
 		string command;
 
+		std::cout << "==================================Game Starts!==================================" << std::endl;
+
 		for(;;)
 		{
+			std::cout << "Please write a command below:" << std::endl;
 			getline(cin, command);
 			if(command == "tick")
 			{
@@ -48,6 +51,7 @@ void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, 
 
 			else if(command == "quit")
 			{
+				std::cout << "==================================Game Over!====================================" << std::endl;
 				return;
 			}
 
@@ -57,14 +61,17 @@ void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, 
 	else if(Mode::Fast == mode)
 	{
 		Game game(strategy_name[0], strategy_name[1], strategy_name[2], scores);
+		std::cout << "==================================Game Starts!==================================" << std::endl;
 		for (int i = 0; i < steps; ++i)
 		{
 			game.tick();
 		}
 		game.print_game_scores();
+		std::cout << "==================================Game Over!====================================" << std::endl;
 	}
 	else if(Mode::Tournament == mode)
 	{
+		std::cout << "==============================Tournament Starts!================================" << std::endl;
 		int k = 1;
 		map<string, int> sum_of_scores;
 		vector<string> idx_names;
@@ -107,6 +114,7 @@ void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, 
 			}
 		}
 		print_results_of_tour(sum_of_scores);
+		std::cout << "==============================Tournament Over!=================================" << std::endl;
 	}
 }
 

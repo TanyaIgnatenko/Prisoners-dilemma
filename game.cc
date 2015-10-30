@@ -31,8 +31,6 @@ Game::Game(std::string n1, std::string n2, std::string n3, matrix & sc) : scores
 
 void Game::tick()
 {
-	if(prisoner1 && prisoner2 && prisoner3) 
-	{
 		choice choices[3];
 		choices[0] = prisoner1->decide();
 		choices[1] = prisoner2->decide();
@@ -74,5 +72,4 @@ void Game::tick()
 		{
 			scores.add_scores(4, 4, 4);
 		}
-	}
 }
