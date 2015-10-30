@@ -8,7 +8,7 @@
 
 void erase_digits(std::string & name)
 {
-	int found = name.find_last_of("_");
+	unsigned int found = name.find_last_of("_");
 	if(found!=std::string::npos)
 	{
 		name.erase(name.begin() + found, name.end());

@@ -70,7 +70,7 @@ void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, 
 		vector<string> idx_names;
 		std::sort(strategy_name.begin(), strategy_name.end());
 
-		for (int i = 0; i < strategy_name.size(); ++i)
+		for (size_t i = 0; i < strategy_name.size(); ++i) 
 		{
 			if(i != 0 && strategy_name[i] == strategy_name[i-1])
 			{
@@ -85,11 +85,11 @@ void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, 
 			pair<const string, int> prisoner(idx_names.back(), 0);
 			sum_of_scores.insert(prisoner).second;
 		}
-		for (int i = 0; i <  strategy_name.size(); ++i)
+		for (size_t i = 0; i <  strategy_name.size(); ++i)
 		{
-			for (int j = i + 1; j < strategy_name.size(); ++j)
+			for (size_t j = i + 1; j < strategy_name.size(); ++j)
 			{
-				for (int k = j + 1; k < strategy_name.size(); ++k)
+				for (size_t k = j + 1; k < strategy_name.size(); ++k)
 				{
 
 					Game game(idx_names[i], idx_names[j], idx_names[k], scores);
@@ -106,7 +106,6 @@ void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, 
 				}
 			}
 		}
-
 		print_results_of_tour(sum_of_scores);
 	}
 }

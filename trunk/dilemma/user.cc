@@ -4,7 +4,6 @@
 #include <string>
 #include <utility>
 
-#include "matrix.h"
 #include "user.h"
 
 using std::string;
@@ -19,14 +18,14 @@ void user::print_results_of_tour(map<string, int> & sum_of_scores) const
 {
 	cout << "Scores of tour:" << endl;
 	std::vector<std::pair<string, int> > scores;
-	for (auto ptr = sum_of_scores.begin(); ptr != sum_of_scores.end(); ptr++)
+	for (auto val : sum_of_scores)
 	{
-		scores.push_back(*ptr);
+		scores.push_back(val);
 	}
 	std::sort(scores.begin(), scores.end(), pair_second_compare);
-	for (int i = 0; i < scores.size(); ++i)
+	for (auto val : scores)
 	{
-		cout << scores[i].first << " " << scores[i].second << "\n";
+		cout << val.first << " " << val.second << "\n";
 	}
 
 	int idx = scores.size() - 1;

@@ -28,27 +28,27 @@ int matrix::get_game_scores(int number_of_prisoner) const
 	{
 		case 1:
 		{
-			for(int i = 0; i < scores1.size(); ++i)
+			for (auto val: scores1)
 			{
-				sum += scores1[i];
+				sum+= val;
 			}
 			break;	
 		}
 
 		case 2:
 		{
-			for(int i = 0; i < scores2.size(); ++i)
+			for (auto val: scores2)
 			{
-				sum += scores2[i];
+				sum+= val;
 			}
 			break;	
 		}
 
 		case 3:
 		{
-			for(int i = 0; i < scores3.size(); ++i)
+			for (auto val: scores3)
 			{
-				sum += scores3[i];
+				sum+= val;
 			}
 			break;	
 		}
@@ -69,18 +69,10 @@ void matrix::print_move_scores() const
 void matrix::print_game_scores() const
 {
 	int sum1 = 0 , sum2 = 0, sum3 = 0;
-	for(int i = 0; i < scores1.size(); ++i)
-	{
-		sum1 += scores1[i];
-	}
-	for(int i = 0; i < scores2.size(); ++i)
-	{
-		sum2 += scores2[i];
-	}
-	for(int i = 0; i < scores3.size(); ++i)
-	{
-		sum3 += scores3[i];
-	}
+	sum1 = get_game_scores(1);
+	sum2 = get_game_scores(2);
+	sum3 = get_game_scores(3);
+
 	cout << "Scores of game:" << endl;
 	cout << strategy_name1 << ": " << sum1 << endl;
 	cout << strategy_name2 << ": " << sum2 << endl;
@@ -96,6 +88,7 @@ matrix & matrix::operator=(const matrix & other)
 	scores2 = other.scores2;
 	scores3 = other.scores3;
 	empty = other.empty;
+	return *this;
 }
 
 void matrix::extract_matrix(std::ifstream & file)
