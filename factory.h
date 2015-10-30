@@ -7,26 +7,26 @@
 #include "strategy.h"
 
 template <class Base>
-class abstractCreator
+class AbstractCreator
 {
 public:
 	virtual Base * operator()() const = 0;
 };
 
 template <class C, class Base>
-class Creator final: public abstractCreator <Base>
+class Creator final: public AbstractCreator <Base>
 {
 public:
 	Base * operator()() const override { return new C(); }
 };
 
 template <class ID, class PRODUCT>
-class FactoryIgnoreErrorPolicy;
+class IgnoreErrorPolicy;
 
 template <class ID, class PRODUCT>
-class FactoryThrowExceptionErrorPolicy;
+class ThrowExceptionErrorPolicy;
 
-template <class Base, class ID, class PRODUCT, template <class, class> class FactoryErrorPolicy = FactoryIgnoreErrorPolicy>
+template <class Base, class ID, class PRODUCT, template <class, class> class ErrorPolicy = IgnoreErrorPolicy>
 class Factory
 {
 public:
@@ -41,7 +41,7 @@ public:
 		{
 			return (creator->second)->operator()();
 		}
-		return error_handler.onCreateFailed(id);
+		return error_handler.on_create_failed(id);
 	}	
 	
 	template <class C>
@@ -54,7 +54,7 @@ public:
 		}
 		else
 		{
-			error_handler.onDuplicateRegistered(id);
+			error_handler.on_duplicate_registered(id);
 		}
 		return true;
 	}
@@ -80,15 +80,15 @@ public:
 		}
 		else
 		{
-			error_handler.onRemoveFailed(id);
+			error_handler.on_remove_failed(id);
 		}
 	}
 
 private:
 	Factory(){}
 	~Factory(){}
-	FactoryErrorPolicy<ID, PRODUCT> error_handler;
-	std::map<ID, abstractCreator<Base>*> creators_;
+	ErrorPolicy<ID, PRODUCT> error_handler;
+	std::map<ID, AbstractCreator<Base>*> creators_;
 };
 
 class FactoryException : public std::exception
@@ -106,38 +106,38 @@ private:
 };
 
 template <class ID, class PRODUCT>
-class FactoryIgnoreErrorPolicy
+class IgnoreErrorPolicy
 {
 public:
-	PRODUCT * onCreateFailed(const ID & id) const{ return nullptr;}
-	void onDuplicateRegistered(const ID & id){}
-	void onRemoveFailed(const ID & id){}
+	PRODUCT * on_create_failed(const ID & id) const{ return nullptr;}
+	void on_duplicate_registered(const ID & id){}
+	void on_remove_failed(const ID & id){}
 };
 
 template <class ID, class PRODUCT>
-class FactoryThrowExceptionErrorPolicy
+class ThrowExceptionErrorPolicy
 {
 public:
-	std::string generateMessage(const char * msg, const ID & id) const
+	std::string generate_message(const char * msg, const ID & id) const
 	{
 		std::stringstream strm;
 		strm << msg << ", requested type id : " << id;
 		return strm.str();
 	}
 
-	PRODUCT * onCreateFailed(const ID & id) const
+	PRODUCT * on_create_failed(const ID & id) const
 	{
-		throw FactoryException(generateMessage("Factory - can't create object (not registered)", id));
+		throw FactoryException(generate_message("Factory - can't create object (not registered)", id));
 	}
 
-	void onRemoveFailed(const ID & id)
+	void on_remove_failed(const ID & id)
 	{
-		throw FactoryException(generateMessage("Factory - can't remove class (not registered)", id));
+		throw FactoryException(generate_message("Factory - can't remove class (not registered)", id));
 	}
 
-	void onDuplicateRegistered(const ID & id)
+	void on_duplicate_registered(const ID & id)
 	{
-		throw FactoryException(generateMessage("Factory - class already registered", id));
+		throw FactoryException(generate_message("Factory - class already registered", id));
 	}
 };
 

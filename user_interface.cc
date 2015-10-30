@@ -48,7 +48,7 @@ void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, 
 
 			else if(command == "quit")
 			{
-				exit(0);
+				return;
 			}
 
 			command.erase();
