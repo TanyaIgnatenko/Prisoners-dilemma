@@ -19,5 +19,5 @@ public:
 
 namespace
 {
-	bool b = Factory<std::string, Strategy>::instance()->doregister<RandomStrategy>("RandomStrategy");
+	bool b = Factory<Strategy, std::string, Strategy>::instance()->doregister<RandomStrategy>("RandomStrategy");
 }
