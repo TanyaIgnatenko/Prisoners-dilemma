@@ -12,16 +12,19 @@ public:
 };
 
 template <class C>
-class Creator : public abstractCreator
+class Creator final: public abstractCreator
 {
 public:
-	Strategy * operator()() const { return new C(); }
+	Strategy * operator()() const override { return new C(); }
 };
 
 template <class ID, class PRODUCT>
 class Factory
 {
 public:
+
+	Factory(const Factory &) = delete;
+	Factory & operator=(const Factory &) = delete;
 
 	PRODUCT * create(const ID & id)
 	{

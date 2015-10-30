@@ -4,13 +4,16 @@
 #include "factory.h"
 #include "strategy.h"
 
-class KindStrategy : public Strategy::Strategy
+class KindStrategy final: public Strategy::Strategy
 {
 public:
 	KindStrategy(){}
-	~KindStrategy(){}
-	KindStrategy(const KindStrategy & other){}
-	choice decide() const {return choice::RemainSilent;}
+	~KindStrategy() override {} 
+
+	KindStrategy(const KindStrategy & other) = delete;
+	KindStrategy & operator=(const KindStrategy & other) = delete;
+	
+	choice decide() const override {return choice::RemainSilent;}
 };
 
 namespace

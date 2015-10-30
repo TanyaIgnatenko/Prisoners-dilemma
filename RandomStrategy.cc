@@ -5,13 +5,16 @@
 #include "factory.h"
 #include "strategy.h"
 
-class RandomStrategy : public Strategy
+class RandomStrategy final: public Strategy
 {
 public:
 	RandomStrategy(){}
-	~RandomStrategy(){}
-	RandomStrategy(const RandomStrategy & other){}
-	choice decide() const {std::random_device rand; int x = rand() % 2; return x ? choice::Betray : choice::RemainSilent;}
+	~RandomStrategy() override {}
+
+	RandomStrategy(const RandomStrategy & other) = delete;
+	RandomStrategy & operator=(const RandomStrategy & other) = delete;
+	
+	choice decide() const override {std::random_device rand; int x = rand() % 2; return x ? choice::Betray : choice::RemainSilent;}
 };
 
 namespace

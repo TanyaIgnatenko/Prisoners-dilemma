@@ -4,15 +4,17 @@
 #include "factory.h"
 #include "strategy.h"
 
-class TitForTatStrategy : public Strategy
+class TitForTatStrategy final: public Strategy
 {
 public:
 	TitForTatStrategy(){history = new History;}
-	TitForTatStrategy(const TitForTatStrategy & other){}
-	~TitForTatStrategy(){}
+	~TitForTatStrategy() override {}
+	
+	TitForTatStrategy(const TitForTatStrategy & other) = delete;
+	TitForTatStrategy & operator=(const TitForTatStrategy & other) = delete;
 
 	void enemy_choices(choice a, choice b){ history->enemy_choices2.push_back(a); history->enemy_choices3.push_back(b);}
-	choice decide() const;
+	choice decide() const override;
 };
 
 choice TitForTatStrategy::decide() const

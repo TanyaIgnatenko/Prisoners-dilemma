@@ -4,13 +4,16 @@
 #include "factory.h"
 #include "strategy.h"
 
-class BadStrategy : public Strategy
+class BadStrategy final: public Strategy
 {
 public:
 	BadStrategy(){}
-	~BadStrategy(){}
-	BadStrategy(const BadStrategy & other ){}
-	choice decide() const {return choice::Betray;}
+	~BadStrategy() override {}
+
+	BadStrategy(const BadStrategy & other) = delete;
+	BadStrategy & operator=(const BadStrategy & other) = delete;
+
+	choice decide() const override {return choice::Betray;}
 };
 
 namespace

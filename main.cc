@@ -4,10 +4,10 @@
 #include <string>
 #include <vector>
 
-#include "user.h"
+#include "enum.h"
 #include "factory.h"
 #include "matrix.h"
-#include "enum.h"
+#include "user.h"
 
 int main(int argc, char **argv)
 { 	
