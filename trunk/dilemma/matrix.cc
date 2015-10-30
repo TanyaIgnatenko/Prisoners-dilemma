@@ -10,10 +10,6 @@ using std::endl;
 using std::string;
 using std::vector;
 
-matrix::matrix(string & n1, string & n2, string & n3, vector<char> & sc1, vector<char>  & sc2, vector<char> & sc3)
-: strategy_name1(n1), strategy_name2(n2), strategy_name3(n3), scores1(sc1), scores2(sc2), scores3(sc3), empty(0)
-{}
-
 void matrix::add_scores(char sc1, char sc2, char sc3)
 {
 	scores1.push_back(sc1);
@@ -93,41 +89,33 @@ matrix & matrix::operator=(const matrix & other)
 
 void matrix::extract_matrix(std::ifstream & file)
 {
-	string name1;
-	file >> name1;
-	vector<char> scores1;
-	char c;
-	file.get(c);
+	file >> strategy_name1;
+	int c;
+	c = file.get();
+	
 	while(c != '\n')// we skip spaces
 	{
-		file.get(c);
-		scores1.push_back(c);
-		file.get(c);
+		c = file.get();
+		scores1.push_back(c - '0');
+		c = file.get();
 	}
 
-	string name2;
-	file >> name2;
-	vector<char> scores2;
-	file.get(c);
+	file >> strategy_name2;
+	c = file.get();
 	while(c != '\n')// we skip spaces
 	{
-		file.get(c);
-		scores2.push_back(c);
-		file.get(c);
+		c = file.get();
+		scores2.push_back(c -'0');
+		c = file.get();
 	}
 
-	string name3;
-	file >> name3;
-	vector<char> scores3;
-	file.get(c);
-	while(c != '\n')// we skip spaces
+	file >> strategy_name3;
+	c = file.get();
+	while(c != EOF)// we skip spaces
 	{
-		file.get(c);
-		scores3.push_back(c);
-		file.get(c);
+		c = file.get();
+		scores3.push_back(c -'0');		
+		c = file.get();
 	}
-
-	matrix m1(name1, name2, name3, scores1, scores2, scores3);
-
-	*this = m1;
+	empty = 0;
 }

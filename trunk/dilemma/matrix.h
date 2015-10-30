@@ -15,8 +15,6 @@ public:
 	matrix(){}
 	matrix(string & n1, string & n2, string & n3) : strategy_name1(n1), strategy_name2(n2), strategy_name3(n3), empty(0){}
 
-	matrix(string & n1, string & n2, string & n3, vector<char> & sc1, vector<char> & sc2, vector<char> & sc3);
-
 	matrix(const matrix & other) : strategy_name1(other.strategy_name1), strategy_name2(other.strategy_name2)\
 	, strategy_name3(other.strategy_name3), scores1(other.scores1), scores2(other.scores2), scores3(other.scores3), empty(other.empty){}
 	void add_scores(char sc1, char sc2, char sc3);

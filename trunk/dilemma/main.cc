@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 		
 		for(auto it = args.begin(); ( it != args.end() && it->find(std::string("--")) == string::npos); ++it)
 		{
-			if(Factory<string, Strategy>::instance()->is_registered(*it))
+			if(Factory<Strategy, string, Strategy>::instance()->is_registered(*it))
 			{
 				strategy_name.push_back(*it);
 			}
@@ -84,14 +84,14 @@ int main(int argc, char **argv)
 			{
 				if(mode == Mode::Detailed)
 				{
-					cerr << "Wrong input. Detailed mode doesn't need arg of steps.\n";
+					std::cerr << "Wrong input. Detailed mode doesn't need arg of steps.\n";
 					return 1;
 				}
 				it->erase (0,8);
 				steps = std::stoi(*it);
 				if( 0 >= steps)
 				{
-					cerr << "Wrong input. Count of steps must be a positive natural number.\n";
+					std::cerr << "Wrong input. Count of steps must be a positive natural number.\n";
 					return 1;
 				}
 
@@ -104,7 +104,7 @@ int main(int argc, char **argv)
 		}
 		catch(std::invalid_argument)
 		{
-			cerr << "Wrong input. Count of steps must be a positive natural number.\n";
+			std::cerr << "Wrong input. Count of steps must be a positive natural number.\n";
 			return 1;
 		}
 
@@ -119,13 +119,15 @@ int main(int argc, char **argv)
 			}
 
 			it->erase(0,9);
-			file_of_matrix.open("in");
+			file_of_matrix.open(*it);
 			if(!file_of_matrix)
 			{
 				std::cerr << "Can't open file of matrix.\n";
 				return 1;
 			}
 			scores.extract_matrix(file_of_matrix);
+			scores.print_move_scores();
+			scores.print_game_scores();
 			++it;
 		}
 
