@@ -130,6 +130,7 @@ void matrix::extract_matrix(std::ifstream & file)
 void matrix::dump_matrix() const
 {
 	ofstream file("matrix.txt");
+	file.exceptions();
 	if(!file)
 	{
 		std::cerr<<"Can't open file.\n";

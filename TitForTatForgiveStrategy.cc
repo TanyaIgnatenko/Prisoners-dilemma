@@ -55,6 +55,7 @@ TitForTatForgiveStrategy::TitForTatForgiveStrategy()
 	history = new History;
 	std::string step;
 	ifstream file;
+ 	file.exceptions();
 
 	if(!strategy_dir.length())
 	{
