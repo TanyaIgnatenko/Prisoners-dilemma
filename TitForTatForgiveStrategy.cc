@@ -99,5 +99,5 @@ choice TitForTatForgiveStrategy::decide() const
 }
 namespace
 {
-	bool b = Factory<Strategy, string, Strategy>::instance()->doregister<TitForTatForgiveStrategy>("TitForTatForgiveStrategy");
+	bool b = Factory<std::string, Strategy>::instance()->doregister<TitForTatForgiveStrategy>("TitForTatForgiveStrategy");
 }

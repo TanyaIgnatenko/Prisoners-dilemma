@@ -9,8 +9,8 @@ class MetaStrategy final: public Strategy
 public:
 	MetaStrategy()
 	{	
-		strategy1 = Factory<Strategy, std::string, Strategy>::instance()->create("RandomStrategy");
-		strategy2 = Factory<Strategy, std::string, Strategy>::instance()->create("BadStrategy");
+		strategy1 = Factory<std::string, Strategy>::instance()->create("RandomStrategy");
+		strategy2 = Factory<std::string, Strategy>::instance()->create("BadStrategy");
 	}
 	~MetaStrategy() override {}
 
@@ -22,11 +22,6 @@ private:
 	Strategy *strategy1;
 	Strategy *strategy2;
 };
-
-namespace
-{
-	bool b = Factory<Strategy, std::string, Strategy>::instance()->doregister<MetaStrategy>("MetaStrategy");
-}
 
 choice MetaStrategy::decide() const
  {
@@ -42,3 +37,9 @@ choice MetaStrategy::decide() const
  		return strategy2->decide();
  	}
  }
+
+namespace
+{
+	bool b = Factory<std::string, Strategy>::instance()->doregister<MetaStrategy>("MetaStrategy");
+}
+
