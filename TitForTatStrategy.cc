@@ -8,23 +8,23 @@ class TitForTatStrategy final: public Strategy
 {
 public:
 	TitForTatStrategy(){history = new History;}
-	~TitForTatStrategy() override {}
+	~TitForTatStrategy() override {delete history;}
 	
 	TitForTatStrategy(const TitForTatStrategy & other) = delete;
 	TitForTatStrategy & operator=(const TitForTatStrategy & other) = delete;
 
 	void enemy_choices(choice a, choice b){ history->enemy_choices2.push_back(a); history->enemy_choices3.push_back(b);}
-	choice decide() const override;
+	choice decide() override;
 };
 
-choice TitForTatStrategy::decide() const
+choice TitForTatStrategy::decide()
 {
-	int idx = history->enemy_choices2.size() - 1;
-	if(idx < 0)
+	int idx = history->enemy_choices2.size();
+	if(idx == 0)
 	{
 		return choice::RemainSilent;
 	}
-	if(choice::Betray == history->enemy_choices2[idx] || choice::Betray == history->enemy_choices3[idx])
+	if(choice::Betray == history->enemy_choices2[idx-1] || choice::Betray == history->enemy_choices3[idx-1])
 	{
 		history->my_choices.push_back(choice::Betray);
 		return choice::Betray;

@@ -21,7 +21,7 @@ public:
 	Strategy(const Strategy & other) = delete;
 	Strategy & operator=(const Strategy & other) = delete;
 	
-	virtual choice decide() const = 0;
+	virtual choice decide() = 0;
 	virtual void enemy_choices(choice , choice){}
 	
 protected:

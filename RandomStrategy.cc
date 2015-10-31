@@ -14,7 +14,7 @@ public:
 	RandomStrategy(const RandomStrategy & other) = delete;
 	RandomStrategy & operator=(const RandomStrategy & other) = delete;
 	
-	choice decide() const override {std::random_device rand; int x = rand() % 2; return x ? choice::Betray : choice::RemainSilent;}
+	choice decide() override {std::random_device rand; int x = rand() % 2; return x ? choice::Betray : choice::RemainSilent;}
 };
 
 namespace
