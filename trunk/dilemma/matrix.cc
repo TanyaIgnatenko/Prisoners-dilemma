@@ -77,13 +77,16 @@ void matrix::print_game_scores() const
 
 matrix & matrix::operator=(const matrix & other)
 {
-	strategy_name1 = other.strategy_name1;
-	strategy_name2 = other.strategy_name2;
-	strategy_name3 = other.strategy_name3;
-	scores1 = other.scores1;
-	scores2 = other.scores2;
-	scores3 = other.scores3;
-	empty = other.empty;
+	if(this != &other)
+	{
+		strategy_name1 = other.strategy_name1;
+		strategy_name2 = other.strategy_name2;
+		strategy_name3 = other.strategy_name3;
+		scores1 = other.scores1;
+		scores2 = other.scores2;
+		scores3 = other.scores3;
+		empty = other.empty;
+	}
 	return *this;
 }
 
