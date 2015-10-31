@@ -23,7 +23,7 @@ public:
 	void dump_matrix() const;
 	void print_move_scores() const;
 	void print_game_scores() const;
-	bool is_empty(){ return empty;}
+	bool is_empty() const { return empty;}
 	matrix & operator=(const matrix & other);
 	~matrix(){}
 private:

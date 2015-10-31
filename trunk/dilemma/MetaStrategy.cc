@@ -12,20 +12,20 @@ public:
 		strategy1 = Factory<std::string, Strategy>::instance()->create("RandomStrategy");
 		strategy2 = Factory<std::string, Strategy>::instance()->create("BadStrategy");
 	}
-	~MetaStrategy() override {}
+	~MetaStrategy() override {delete strategy1; delete strategy2;}
 
 	MetaStrategy(const MetaStrategy & other) = delete;
 	MetaStrategy & operator=(const MetaStrategy & other) = delete;
 
-	choice decide() const override;
+	choice decide() override;
 private:
-	Strategy *strategy1;
-	Strategy *strategy2;
+	size_t move = 0;
+	Strategy *strategy1 = nullptr;
+	Strategy *strategy2 = nullptr;
 };
 
-choice MetaStrategy::decide() const
+choice MetaStrategy::decide()
  {
- 	static size_t move = 0;
  	if(move % 2 == 0)
  	{
  		++move;

@@ -17,7 +17,7 @@ using std::pair;
 using std::string;
 using std::vector;
 
-void User::user_interface(vector<string> & strategy_name, Mode mode, int steps, matrix & scores)
+void User::user_interface(vector<string> & strategy_name, Mode mode, int steps, matrix & scores) const
 {
 	if(Mode::Detailed == mode)
 	{

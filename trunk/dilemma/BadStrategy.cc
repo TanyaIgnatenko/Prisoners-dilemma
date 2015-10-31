@@ -13,7 +13,7 @@ public:
 	BadStrategy(const BadStrategy & other) = delete;
 	BadStrategy & operator=(const BadStrategy & other) = delete;
 
-	choice decide() const override {return choice::Betray;}
+	choice decide() override {return choice::Betray;}
 };
 
 namespace

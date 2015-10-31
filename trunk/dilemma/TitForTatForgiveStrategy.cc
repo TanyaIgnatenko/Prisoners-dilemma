@@ -13,18 +13,41 @@ class TitForTatForgiveStrategy final: public Strategy
 {
 public:
 	TitForTatForgiveStrategy();
-	~TitForTatForgiveStrategy() override {}
+	~TitForTatForgiveStrategy() override {delete history;}
 
 	TitForTatForgiveStrategy(const TitForTatForgiveStrategy & other) = delete;
 	TitForTatForgiveStrategy & operator=(const TitForTatForgiveStrategy & other) = delete;
 
-	choice decide() const override;
+	choice decide() override;
 	void enemy_choices(choice a, choice b){ history->enemy_choices2.push_back(a); history->enemy_choices3.push_back(b);}
 
 private:
 	int forgive_step = 5;
 
 };
+
+choice TitForTatForgiveStrategy::decide()
+{
+	int idx = history->enemy_choices2.size();
+	if(idx == 0)
+	{
+		return choice::RemainSilent;
+	}
+	if((idx + 1) % forgive_step == 0)
+	{
+		return choice::RemainSilent;
+	}
+	if(choice::Betray == history->enemy_choices2[idx-1] || choice::Betray == history->enemy_choices3[idx-1])
+	{
+		history->my_choices.push_back(choice::Betray);
+		return choice::Betray;
+	}
+	else
+	{
+		history->my_choices.push_back(choice::RemainSilent);
+		return choice::RemainSilent;
+	}
+}
 
 TitForTatForgiveStrategy::TitForTatForgiveStrategy()
 {
@@ -75,28 +98,6 @@ TitForTatForgiveStrategy::TitForTatForgiveStrategy()
 	}
 }
 
-choice TitForTatForgiveStrategy::decide() const
-{
-	int idx = history->enemy_choices2.size();
-	if(idx == 0)
-	{
-		return choice::RemainSilent;
-	}
-	if((idx + 1) % forgive_step == 0)
-	{
-		return choice::RemainSilent;
-	}
-	if(choice::Betray == history->enemy_choices2[idx-1] || choice::Betray == history->enemy_choices3[idx-1])
-	{
-		history->my_choices.push_back(choice::Betray);
-		return choice::Betray;
-	}
-	else
-	{
-		history->my_choices.push_back(choice::RemainSilent);
-		return choice::RemainSilent;
-	}
-}
 namespace
 {
 	bool b = Factory<std::string, Strategy>::instance()->doregister<TitForTatForgiveStrategy>("TitForTatForgiveStrategy");

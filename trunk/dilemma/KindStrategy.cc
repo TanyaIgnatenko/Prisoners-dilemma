@@ -13,7 +13,7 @@ public:
 	KindStrategy(const KindStrategy & other) = delete;
 	KindStrategy & operator=(const KindStrategy & other) = delete;
 	
-	choice decide() const override {return choice::RemainSilent;}
+	choice decide() override {return choice::RemainSilent;}
 };
 
 namespace
