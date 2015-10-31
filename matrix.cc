@@ -98,12 +98,12 @@ void matrix::extract_matrix(std::ifstream & file)
 	{
 		file.get(score);
 		scores1.push_back(atoi(&score));
-			file.get(score);
-			++count;
-		}
+		file.get(score);
+		++count;
+	}
 
-		file >> strategy_name2;
-		file.ignore();
+	file >> strategy_name2;
+	file.ignore();
 	for (int i = 0; i < count; ++i) // we skip spaces
 	{
 		file.get(score);
@@ -122,4 +122,34 @@ void matrix::extract_matrix(std::ifstream & file)
 	}
 
 	empty = 0;
+}
+
+void matrix::dump_matrix() const
+{
+	ofstream file("matrix.txt");
+	if(!file)
+	{
+		std::cerr<<"Can't open file.\n";
+		return;
+	}
+
+	file << strategy_name1;
+	for (char val: scores1)
+	{
+		file << " " << +val;
+	}
+	file << "\n";
+
+	file << strategy_name2;
+	for (auto val: scores2)
+	{
+		file << " " << +val;
+	}
+	file << "\n";
+
+	file << strategy_name3;
+	for (auto val: scores3)
+	{
+		file << " " << +val;
+	}
 }
