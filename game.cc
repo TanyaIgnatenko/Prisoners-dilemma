@@ -31,7 +31,7 @@ Game::Game(std::string n1, std::string n2, std::string n3, matrix & sc) : scores
 
 void Game::tick()
 {
-		choice choices[3];
+		std::vector<choice> choices(3);
 		choices[0] = prisoner1->decide();
 		choices[1] = prisoner2->decide();
 		choices[2] = prisoner3->decide();

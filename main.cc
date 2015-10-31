@@ -3,8 +3,7 @@
 
 int main(int argc, const char **argv)
 { 	
-	user info;
-	if(info.command_line_parser(argc, argv) == Result::Success)
+	if(User::instance()->command_line_parser(argc, argv) == Result::Success)
 	{
 		return 0;		
 	}
