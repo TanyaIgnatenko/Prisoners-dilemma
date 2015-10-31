@@ -61,7 +61,7 @@ public:
 		return true;
 	}
 
-	bool is_registered(const ID & id)
+	bool is_registered(const ID & id) const
 	{
 		return creators_.find(id) != creators_.end();
 	}
@@ -96,7 +96,7 @@ private:
 		}
 	}
 	ErrorPolicy<ID, PRODUCT> error_handler;
-	std::map<ID, AbstractCreator<PRODUCT	>*> creators_;
+	std::map<ID, AbstractCreator<PRODUCT>*> creators_;
 };
 
 class FactoryException : public std::exception
