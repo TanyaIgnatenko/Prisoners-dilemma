@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <string>
 
 #include "enum.h"
@@ -8,7 +9,7 @@
 
 void erase_digits(std::string & name)
 {
-	unsigned int found = name.find_last_of("_");
+	size_t found = name.find_last_of("_");
 	if(found!=std::string::npos)
 	{
 		name.erase(name.begin() + found, name.end());
