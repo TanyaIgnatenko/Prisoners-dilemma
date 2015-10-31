@@ -6,18 +6,20 @@
 
 #include "strategy.h"
 
-template <class Base>
+template <class PRODUCT>
 class AbstractCreator
 {
 public:
-	virtual Base * operator()() const = 0;
+	virtual PRODUCT * operator()() const = 0;
+	virtual ~AbstractCreator(){}
 };
 
-template <class C, class Base>
-class Creator final: public AbstractCreator <Base>
+template <class C, class PRODUCT>
+class Creator final: public AbstractCreator <PRODUCT>
 {
 public:
-	Base * operator()() const override { return new C(); }
+	PRODUCT * operator()() const override { return new C(); }
+	virtual ~Creator(){}
 };
 
 template <class ID, class PRODUCT>
@@ -26,7 +28,7 @@ class IgnoreErrorPolicy;
 template <class ID, class PRODUCT>
 class ThrowExceptionErrorPolicy;
 
-template <class Base, class ID, class PRODUCT, template <class, class> class ErrorPolicy = IgnoreErrorPolicy>
+template <class ID, class PRODUCT, template <class, class> class ErrorPolicy = IgnoreErrorPolicy>
 class Factory
 {
 public:
@@ -50,7 +52,7 @@ public:
 		auto it = creators_.find(id);
 		if (creators_.end() == it)
 		{
-			creators_[id] = new Creator<C, Base>();
+			creators_[id] = new Creator<C, PRODUCT>();
 		}
 		else
 		{
@@ -86,9 +88,15 @@ public:
 
 private:
 	Factory(){}
-	~Factory(){}
+	~Factory()
+	{
+		for(auto val: creators_)
+		{
+			delete val.second;
+		}
+	}
 	ErrorPolicy<ID, PRODUCT> error_handler;
-	std::map<ID, AbstractCreator<Base>*> creators_;
+	std::map<ID, AbstractCreator<PRODUCT	>*> creators_;
 };
 
 class FactoryException : public std::exception

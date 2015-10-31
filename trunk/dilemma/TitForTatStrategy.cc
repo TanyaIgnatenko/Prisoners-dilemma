@@ -37,5 +37,5 @@ choice TitForTatStrategy::decide() const
 }
 namespace
 {
-	bool b = Factory<Strategy, std::string, Strategy>::instance()->doregister<TitForTatStrategy>("TitForTatStrategy");
+	bool b = Factory<std::string, Strategy>::instance()->doregister<TitForTatStrategy>("TitForTatStrategy");
 }
