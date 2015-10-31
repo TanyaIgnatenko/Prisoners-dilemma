@@ -49,6 +49,11 @@ void User::user_interface(vector<string> & strategy_name, Mode mode, int steps, 
 				}
 			}
 
+			else if(command == "dump")
+			{
+				game.dump_matrix();
+			}
+
 			else if(command == "quit")
 			{
 				std::cout << "==================================Game Over!====================================" << std::endl;

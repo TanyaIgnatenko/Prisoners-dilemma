@@ -20,6 +20,7 @@ public:
 	void add_scores(char sc1, char sc2, char sc3);
 	int get_game_scores(int number_of_prisoner) const;
 	void extract_matrix(std::ifstream & file);
+	void dump_matrix() const;
 	void print_move_scores() const;
 	void print_game_scores() const;
 	bool is_empty(){ return empty;}

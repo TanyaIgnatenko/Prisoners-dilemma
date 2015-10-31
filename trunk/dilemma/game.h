@@ -16,6 +16,7 @@ public:
 	Game & operator = (const Game & other) = delete;
 
 	void tick();
+	void dump_matrix() const {scores.dump_matrix();}
 	int get_game_scores(int prisoner_number) const {return scores.get_game_scores(prisoner_number);}
 	void print_move_scores() const {scores.print_move_scores();}
 	void print_game_scores() const {scores.print_game_scores();}
