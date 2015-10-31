@@ -90,32 +90,36 @@ matrix & matrix::operator=(const matrix & other)
 void matrix::extract_matrix(std::ifstream & file)
 {
 	file >> strategy_name1;
-	int c;
-	c = file.get();
-	
-	while(c != '\n')// we skip spaces
+	char score;
+	file.get(score);
+	int count = 0;
+
+	while(score != '\n')// we skip spaces
 	{
-		c = file.get();
-		scores1.push_back(c - '0');
-		c = file.get();
+		file.get(score);
+		scores1.push_back(atoi(&score));
+			file.get(score);
+			++count;
+		}
+
+		file >> strategy_name2;
+		file.ignore();
+	for (int i = 0; i < count; ++i) // we skip spaces
+	{
+		file.get(score);
+		scores2.push_back(atoi(&score));
+		file.ignore();
 	}
 
-	file >> strategy_name2;
-	c = file.get();
-	while(c != '\n')// we skip spaces
-	{
-		c = file.get();
-		scores2.push_back(c -'0');
-		c = file.get();
-	}
 
 	file >> strategy_name3;
-	c = file.get();
-	while(c != EOF)// we skip spaces
+	file.ignore();
+	for (int i = 0; i < count; ++i) // we skip spaces
 	{
-		c = file.get();
-		scores3.push_back(c -'0');		
-		c = file.get();
+		file.get(score);
+		scores3.push_back(atoi(&score));
+		file.ignore();
 	}
+
 	empty = 0;
 }
