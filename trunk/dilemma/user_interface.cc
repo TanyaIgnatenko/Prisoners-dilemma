@@ -17,7 +17,7 @@ using std::pair;
 using std::string;
 using std::vector;
 
-void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, matrix & scores)
+void User::user_interface(vector<string> & strategy_name, Mode mode, int steps, matrix & scores)
 {
 	if(Mode::Detailed == mode)
 	{
@@ -28,7 +28,7 @@ void user::user_interface(vector<string> & strategy_name, Mode mode, int steps, 
 
 		for(;;)
 		{
-			std::cout << "Please write a command below:" << std::endl;
+			std::cout << "Please write a command:" << std::endl;
 			getline(cin, command);
 			if(command == "tick")
 			{
