@@ -1,8 +1,8 @@
 #ifndef FACTORY_H
 #define FACTORY_H
 
+#include <exception>
 #include <map>
-#include <sstream>
 
 #include "strategy.h"
 
@@ -28,7 +28,7 @@ class IgnoreErrorPolicy;
 template <class ID, class PRODUCT>
 class ThrowExceptionErrorPolicy;
 
-template <class ID, class PRODUCT, template <class, class> class ErrorPolicy = IgnoreErrorPolicy>
+template <class ID, class PRODUCT, template <class, class> class ErrorPolicy = ThrowExceptionErrorPolicy>
 class Factory
 {
 public:
@@ -99,20 +99,6 @@ private:
 	std::map<ID, AbstractCreator<PRODUCT>*> creators_;
 };
 
-class FactoryException : public std::exception
-{
-public:
-
-	FactoryException(const std::string & msg) throw() : _msg(msg) {}
-	virtual ~FactoryException() throw() {}
-	
-	virtual const char * what() const throw(){ return _msg.c_str();}
-	
-private:
-
-	std::string	_msg;
-};
-
 template <class ID, class PRODUCT>
 class IgnoreErrorPolicy
 {
@@ -126,26 +112,20 @@ template <class ID, class PRODUCT>
 class ThrowExceptionErrorPolicy
 {
 public:
-	std::string generate_message(const char * msg, const ID & id) const
-	{
-		std::stringstream strm;
-		strm << msg << ", requested type id : " << id;
-		return strm.str();
-	}
 
 	PRODUCT * on_create_failed(const ID & id) const
 	{
-		throw FactoryException(generate_message("Factory - can't create object (not registered)", id));
+		throw std::runtime_error("Factory - can't create object (not registered)");
 	}
 
 	void on_remove_failed(const ID & id)
 	{
-		throw FactoryException(generate_message("Factory - can't remove class (not registered)", id));
+		throw std::runtime_error("Factory - can't remove class (not registered)");
 	}
 
 	void on_duplicate_registered(const ID & id)
 	{
-		throw FactoryException(generate_message("Factory - class already registered", id));
+		throw std::runtime_error("Factory - class already registered");
 	}
 };
 
