@@ -55,7 +55,7 @@ TitForTatForgiveStrategy::TitForTatForgiveStrategy()
 	history = new History;
 	std::string step;
 	ifstream file;
- 	file.exceptions(std::ifstream::goodbit | std::ifstream::eofbit | std::ifstream::failbit | std::ifstream::badbit);
+	file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
 
 	if(!strategy_dir.length())
 	{
@@ -71,16 +71,13 @@ TitForTatForgiveStrategy::TitForTatForgiveStrategy()
 		}
 		else
 		{
-			command.clear();
-			command = "cd " + strategy_dir;
-			system(command.c_str());
-			file.open("TitForTatForgiveStrategy.txt");
-			if(!file)
-			{
-				std::cerr << "Can't open a file of config for TitForTatForgiveStrategy.\n";
-			}
 			try
 			{
+				command.clear();
+				command = "cd " + strategy_dir;
+				system(command.c_str());
+				file.open("TitForTatForgiveStrategy.txt");
+
 				file >> step;
 				forgive_step = std::stoi(step);
 				if( 0 >= forgive_step)
@@ -88,11 +85,16 @@ TitForTatForgiveStrategy::TitForTatForgiveStrategy()
 					std::cerr << "Wrong input in a config file for TitForTatForgiveStrategy, that's why we have to use a default forgive_step.\n";
 					forgive_step = 5;
 				}
-			}
 
+			}
 			catch(std::invalid_argument)
 			{
 				std::cerr << "Wrong input in a config file for TitForTatForgiveStrategy, that's why we have to use a default forgive_step.\n";
+				forgive_step = 5;
+			}
+			catch(std::ios_base::failure)
+			{
+				std::cerr << "Error in file of config for TitForTatForgiveStrategy.\n";
 				forgive_step = 5;
 			}
 		}

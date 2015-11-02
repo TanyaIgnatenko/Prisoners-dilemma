@@ -24,6 +24,9 @@ public:
 	void print_move_scores() const;
 	void print_game_scores() const;
 	bool is_empty() const { return empty;}
+
+	void clear_up(){ empty = 1;}
+
 	matrix & operator=(const matrix & other);
 	~matrix(){}
 private:

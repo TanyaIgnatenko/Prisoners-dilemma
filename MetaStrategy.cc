@@ -9,16 +9,24 @@ class MetaStrategy final: public Strategy
 {
 public:
 	MetaStrategy()
-	{	
-		strategy1 = Factory<std::string, Strategy>::instance()->create("RandomStrategy");
-		strategy2 = Factory<std::string, Strategy>::instance()->create("BadStrategy");
+	{	try
+		{
+			strategy1 = Factory<std::string, Strategy>::instance()->create("RandomStrategy");
+			strategy2 = Factory<std::string, Strategy>::instance()->create("BadStrategy");
+		}
+		catch(...)
+		{
+			clean_up();
+			throw;
+		}
 	}
-	~MetaStrategy() override {delete strategy1; delete strategy2;}
+	~MetaStrategy() override {clean_up();}
 
 	MetaStrategy(const MetaStrategy & other) = delete;
 	MetaStrategy & operator=(const MetaStrategy & other) = delete;
 
 	choice decide() override;
+	void clean_up() {delete strategy1; delete strategy2;}
 private:
 	size_t move = 0;
 	Strategy *strategy1 = nullptr;
@@ -26,18 +34,18 @@ private:
 };
 
 choice MetaStrategy::decide()
- {
- 	if(move % 2 == 0)
- 	{
- 		++move;
- 		return strategy1->decide();
- 	}
- 	else
- 	{
- 		++move;
- 		return strategy2->decide();
- 	}
- }
+{
+	if(move % 2 == 0)
+	{
+		++move;
+		return strategy1->decide();
+	}
+	else
+	{
+		++move;
+		return strategy2->decide();
+	}
+}
 
 namespace
 {
