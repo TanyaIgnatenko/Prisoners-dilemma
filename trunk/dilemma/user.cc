@@ -8,6 +8,7 @@
 #include "user.h"
 
 using std::string;
+using std::vector;
 using std::map;
 
 bool User::pair_second_compare(const pair<string, int> & a, const pair<string, int> & b)
@@ -38,3 +39,23 @@ void User::print_results_of_tour(map<string, int> & sum_of_scores) const
 	}
 	cout << endl;
 }
+
+vector<vector <int> > User::extract_rules(std::ifstream & file)
+{
+	vector<vector <int> > rules;
+	rules.resize(3);
+	int score;
+
+	for(int i = 0; i < 8; ++i)
+	{ 
+		for(int j = 0; j < 3; ++j)
+		{
+			file >> score;
+			rules[j].push_back(score);
+		}
+	}
+	
+	return rules;
+}
+
+

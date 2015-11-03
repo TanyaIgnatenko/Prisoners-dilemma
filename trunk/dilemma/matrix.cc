@@ -12,7 +12,7 @@ using std::endl;
 using std::string;
 using std::vector;
 
-void matrix::add_scores(char sc1, char sc2, char sc3)
+void matrix::add_scores(int sc1, int sc2, int sc3)
 {
 	scores1.push_back(sc1);
 	scores2.push_back(sc2);
@@ -90,82 +90,4 @@ matrix & matrix::operator=(const matrix & other)
 		empty = other.empty;
 	}
 	return *this;
-}
-
-void matrix::extract_matrix(std::ifstream & file)
-{
-	try
-	{
-		file >> strategy_name1;
-		char score;
-		file.get(score);
-		int count = 0;
-
-		while(score != '\n')// we skip spaces
-		{
-			file.get(score);
-			scores1.push_back(atoi(&score));
-			file.get(score);
-			++count;
-		}
-
-		file >> strategy_name2;
-		file.ignore();
-		for (int i = 0; i < count; ++i) // we skip spaces
-		{
-			file.get(score);
-			scores2.push_back(atoi(&score));
-			file.ignore();
-		}
-
-
-		file >> strategy_name3;
-		file.ignore();
-		for (int i = 0; i < count; ++i) // we skip spaces
-		{
-			file.get(score);
-			scores3.push_back(atoi(&score));
-			file.ignore();
-		}
-		empty = 0;
-	}
-	catch(std::invalid_argument)
-	{
-		this->clear_up();
-		std::cerr << "Invalid arguments in a matrix file!" << std::endl;
-	}
-}
-
-void matrix::dump_matrix() const
-{
-	ofstream file;
-	file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	try
-	{
-		file.open("matrix.txt");
-
-		file << strategy_name1;
-		for (char val: scores1)
-		{
-			file << " " << +val;
-		}
-		file << "\n";
-
-		file << strategy_name2;
-		for (auto val: scores2)
-		{
-			file << " " << +val;
-		}
-		file << "\n";
-
-		file << strategy_name3;
-		for (auto val: scores3)
-		{
-			file << " " << +val;
-		}
-	}
-	catch(std::ios_base::failure)
-	{
-		std::cerr << "Can't dump matrix!" << std::endl;
-	}	
 }

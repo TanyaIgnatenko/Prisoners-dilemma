@@ -3,13 +3,5 @@
 
 int main(int argc, const char **argv)
 { 	
-	if(User::instance()->command_line_parser(argc, argv) == Result::Success)
-	{
-		return 0;		
-	}
-	else
-	{
-		return 1;
-	}
-
+	return (User::instance()->command_line_parser(argc, argv) == Result::Success);
 }

@@ -19,13 +19,13 @@ using std::pair;
 using std::string;
 using std::vector;
 
-Result User::user_interface(vector<string> & strategy_name, Mode mode, int steps, matrix & scores) const
+Result User::user_interface(vector<string> & strategy_name, Mode mode, int steps, vector<vector <int> > & rules) const
 {
 	try
 	{
 		if(Mode::Detailed == mode)
 		{
-			Game game(strategy_name[0], strategy_name[1], strategy_name[2], scores);
+			Game game(strategy_name[0], strategy_name[1], strategy_name[2], rules);
 			string command;
 
 			std::cout << "==================================Game Starts!==================================" << std::endl;
@@ -53,11 +53,6 @@ Result User::user_interface(vector<string> & strategy_name, Mode mode, int steps
 					}
 				}
 
-				else if(command == "dump")
-				{
-					game.dump_matrix();
-				}
-
 				else if(command == "quit")
 				{
 					std::cout << "==================================Game Over!====================================" << std::endl;
@@ -69,7 +64,7 @@ Result User::user_interface(vector<string> & strategy_name, Mode mode, int steps
 		}
 		else if(Mode::Fast == mode)
 		{
-			Game game(strategy_name[0], strategy_name[1], strategy_name[2], scores);
+			Game game(strategy_name[0], strategy_name[1], strategy_name[2], rules);
 			std::cout << "==================================Game Starts!==================================" << std::endl;
 			for (int i = 0; i < steps; ++i)
 			{
@@ -108,7 +103,7 @@ Result User::user_interface(vector<string> & strategy_name, Mode mode, int steps
 					for (size_t k = j + 1; k < strategy_name.size(); ++k)
 					{
 
-						Game game(idx_names[i], idx_names[j], idx_names[k], scores);
+						Game game(idx_names[i], idx_names[j], idx_names[k], rules);
 
 						for (int i = 0; i < steps; ++i)
 						{
