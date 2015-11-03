@@ -9,13 +9,23 @@
 #include "enum.h"
 #include "matrix.h"
 
+struct Parser_Result
+{
+public:
+	bool success = true;
+	std::vector<string> strategy_name;
+	Mode mode;
+	size_t steps;
+	std::vector<std::vector<int>> rules;
+};
+
 class User
 {
 public:
 	User(const User & other) = delete;
 	const User & operator=(const User & other)= delete;
 
-	Result command_line_parser(int argc, const char **argv);
+	Parser_Result command_line_parser(int argc, const char **argv);
 	Result user_interface(vector<std::string> & strategy_name, Mode mode, int steps, std::vector<std::vector <int> > & rules) const;
 	void print_results_of_tour(std::map<std::string, int> & sum_of_scores) const;
 	const string & get_config_dir() const {return strategy_dir;}
