@@ -1,4 +1,5 @@
 #include <cstddef>
+#include <memory>
 #include <string>
 
 #include "enum.h"
@@ -9,28 +10,20 @@ class MetaStrategy final: public Strategy
 {
 public:
 	MetaStrategy()
-	{	try
-		{
-			strategy1 = Factory<std::string, Strategy>::instance()->create("RandomStrategy");
-			strategy2 = Factory<std::string, Strategy>::instance()->create("BadStrategy");
-		}
-		catch(...)
-		{
-			clean_up();
-			throw;
-		}
+	{	
+		strategy1 = std::unique_ptr<Strategy>(Factory<std::string, Strategy>::instance()->create("RandomStrategy"));
+		strategy2 = std::unique_ptr<Strategy>(Factory<std::string, Strategy>::instance()->create("BadStrategy"));
 	}
-	~MetaStrategy() override {clean_up();}
+	~MetaStrategy() override {}
 
 	MetaStrategy(const MetaStrategy & other) = delete;
 	MetaStrategy & operator=(const MetaStrategy & other) = delete;
 
 	choice decide() override;
-	void clean_up() {delete strategy1; delete strategy2;}
 private:
 	size_t move = 0;
-	Strategy *strategy1 = nullptr;
-	Strategy *strategy2 = nullptr;
+	std::unique_ptr<Strategy> strategy1;
+	std::unique_ptr<Strategy> strategy2;
 };
 
 choice MetaStrategy::decide()

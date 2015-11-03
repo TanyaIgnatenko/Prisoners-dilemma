@@ -60,17 +60,10 @@ Game::Game(string n1, string n2, string n3, const vector<vector <int> > & rules)
 	erase_digits(n1);
 	erase_digits(n2);
 	erase_digits(n3);
-	try
-	{
-		prisoner1 = Factory<string, Strategy>::instance()->create(n1);
-		prisoner2 = Factory<string, Strategy>::instance()->create(n2);
-		prisoner3 = Factory<string, Strategy>::instance()->create(n3);
-	}
-	catch(...)
-	{
-		clean_up();
-		throw;
-	}
+
+	prisoner1 = std::unique_ptr<Strategy>(Factory<string, Strategy>::instance()->create(n1));
+	prisoner2 = std::unique_ptr<Strategy>(Factory<string, Strategy>::instance()->create(n2));
+	prisoner3 = std::unique_ptr<Strategy>(Factory<string, Strategy>::instance()->create(n3));
 }
 
 void Game::tick()
